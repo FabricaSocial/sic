@@ -5,15 +5,15 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>{% block title%}Sistema Integrado CIAS{% endblock title%}</title>
+    <title>{% block titulo%}Sistema Integrado CIAS{% endblock titulo%}</title>
 
     {% block css %}
         {% load staticfiles %}
         <link rel="stylesheet" href="{% static "foundation/css/foundation.css" %}" />
     {% endblock css %}
     
-    {% block header_scripts %}
-    {% endblock header_scripts %}
+    {% block scripts_cabecalho %}
+    {% endblock scripts_cabecalho %}
 </head>
 
 <body>
@@ -42,14 +42,14 @@
         </div>
     </div>
 
-    {% block content %}
-    {% endblock content %}
+    {% block conteudo %}
+    {% endblock conteudo %}
 
     {% block modal %}
     {% endblock modal %}
 
-    {% block graph_scripts %}
-    {% endblock graph_scripts %}
+    {% block graficos %}
+    {% endblock graficos %}
 
     {% load staticfiles %}
     <script src="{% static "foundation/js/vendor/modernizr.js" %}"></script>
@@ -60,6 +60,6 @@
       $(document).foundation();
     </script>
 
-    {% block footer_scripts %}
-    {% endblock footer_scripts %}
+    {% block scripts_rodape %}
+    {% endblock scripts_rodape %}
 </body>

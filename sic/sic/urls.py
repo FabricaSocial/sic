@@ -1,6 +1,5 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-import ponto
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -8,6 +7,8 @@ urlpatterns = patterns('',
                        # url(r'^$', 'sic.views.home', name='home'),
                        # url(r'^blog/', include('blog.urls')),
 
+                       url(r'^$', 'auth.views.inicio'),
                        url(r'^admin/', include(admin.site.urls)),
                        url(r'^ponto/', include('ponto.urls')),
+                       url(r'^login/', include('auth.urls')),
                        )

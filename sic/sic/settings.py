@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'ponto',
+    'auth',
 )
 
 MIDDLEWARE_CLASSES = (
