@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Login | SIC{% endblock %}
+
+{% block conteudo %}
+
+    <div class="row">
+        <div class="large-4 medium-4 columns"><p></p></div>
+        <div class="large-4 medium-4 columns panel">
+            <form action="/login/entrar/" method="post">
+                {% csrf_token %}
+                <input type="text" name="usuario" id="usuario" placeholder="Usuário" required>
+                <input type="password" name="senha" id="senha" placeholder="Senha" required>
+
+                <button class="postfix radius">Entrar</button>
+            </form>
+        </div>
+        <div class="large-4 medium-4 columns"><p></p></div>
+    </div>
+
+{% endblock %}
+
+{% block modal %}
+
+    <div id="erro_login" class="small reveal-modal" data-reveal>
+        <h2>Ops...</h2>
+        <p class="lead">Alguma coisa aconteceu!</p>
+        
+        {% if erro_login == 1 %}
+            <p>Parece que esse usuário está desativado.</p>
+        {% elif erro_login == 2 %}
+            <p>Usuário ou senha inválidos.</p>
+        {% endif %}
+
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+{% endblock %}
+
+{% block scripts_rodape %}
+    <script type="text/javascript">
+        document.getElementById('usuario').focus();
+    </script>
+
+    {% if erro_login != None %}
+        <script type="text/javascript">
+            $('#erro_login').foundation('reveal', 'open');
+        </script>
+    {% endif %}
+{% endblock %}

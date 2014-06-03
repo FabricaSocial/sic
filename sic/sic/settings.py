@@ -37,8 +37,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'south',
+
+    'modelos',
+    'access_db',
     'ponto',
     'auth',
+    'app',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -91,5 +96,5 @@ TEMPLATE_DIRS = (
 )
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static'),
 )
