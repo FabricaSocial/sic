@@ -14,10 +14,13 @@ LOGIN_INVALIDO = 2
 
 
 def inicio(request):
-    return render_to_response(
-        'login.html',
-        context_instance=RequestContext(request)
-    )
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/home/')
+    else:
+        return render_to_response(
+            'login.html',
+            context_instance=RequestContext(request)
+        )
 
 
 def entrar(request):

@@ -234,157 +234,98 @@ class Tabfuncional(models.Model):
 
 
 class Tabfuncionarios(models.Model):
-    # Field name made lowercase.
     codcpf = models.IntegerField(db_column='CodCPF', primary_key=True)
-    # Field name made lowercase.
     cpf = models.CharField(db_column='CPF', unique=True, max_length=11)
-    # Field name made lowercase.
     nome = models.CharField(db_column='Nome', max_length=255, blank=True)
-    # Field name made lowercase.
     nomepai = models.CharField(db_column='NomePai', max_length=255, blank=True)
-    # Field name made lowercase.
     nomemae = models.CharField(db_column='NomeMae', max_length=255, blank=True)
-    # Field name made lowercase.
     sexo = models.CharField(db_column='Sexo', max_length=50, blank=True)
-    # Field name made lowercase.
     estadocivil = models.CharField(
         db_column='EstadoCivil', max_length=50, blank=True)
-    # Field name made lowercase.
     datanascimento = models.DateTimeField(
         db_column='DataNascimento', blank=True, null=True)
-    # Field name made lowercase.
     cartestrangeiro = models.CharField(
         db_column='CartEstrangeiro', max_length=255, blank=True)
-    # Field name made lowercase.
     pispasep = models.FloatField(db_column='PISPasep', blank=True, null=True)
-    # Field name made lowercase.
     dtpis = models.DateTimeField(db_column='DtPis', blank=True, null=True)
-    # Field name made lowercase.
     rg = models.CharField(db_column='RG', max_length=50, blank=True)
-    # Field name made lowercase.
     orgaoexpedidor = models.CharField(
         db_column='OrgaoExpedidor', max_length=50, blank=True)
-    # Field name made lowercase.
     ufexp = models.CharField(db_column='UFexp', max_length=2, blank=True)
-    # Field name made lowercase.
     dataexp = models.DateTimeField(db_column='DataExp', blank=True, null=True)
-    # Field name made lowercase.
     tituloeleitor = models.FloatField(
         db_column='TituloEleitor', blank=True, null=True)
-    # Field name made lowercase.
     zonat = models.IntegerField(db_column='Zonat', blank=True, null=True)
-    # Field name made lowercase. Field renamed to remove unsuitable characters.
     se_ot = models.IntegerField(
         db_column='Se\xe7\xe3ot', blank=True, null=True)
-    # Field name made lowercase.
     municipiot = models.CharField(
         db_column='Municipiot', max_length=255, blank=True)
-    # Field name made lowercase.
     uft = models.CharField(db_column='UFt', max_length=255, blank=True)
-    # Field name made lowercase.
     endereco = models.CharField(
         db_column='Endereco', max_length=255, blank=True)
-    # Field name made lowercase.
     cidade = models.CharField(db_column='Cidade', max_length=50, blank=True)
-    # Field name made lowercase.
     estado = models.CharField(db_column='Estado', max_length=2, blank=True)
-    # Field name made lowercase.
     bairro = models.CharField(db_column='Bairro', max_length=50, blank=True)
-    # Field name made lowercase.
     cep = models.FloatField(db_column='CEP', blank=True, null=True)
-    # Field name made lowercase.
     telefoneres = models.FloatField(
         db_column='TelefoneRes', blank=True, null=True)
-    # Field name made lowercase.
     telefonecelular = models.FloatField(
         db_column='TelefoneCelular', blank=True, null=True)
-    # Field name made lowercase.
     email = models.CharField(db_column='Email', max_length=255, blank=True)
-    # Field name made lowercase.
     filhos = models.IntegerField(db_column='Filhos', blank=True, null=True)
-    # Field name made lowercase.
     pne = models.IntegerField(db_column='PNE', blank=True, null=True)
-    # Field name made lowercase.
     qualdef = models.CharField(db_column='QualDef', max_length=255, blank=True)
-    # Field name made lowercase.
     nac = models.CharField(db_column='Nac', max_length=255, blank=True)
-    # Field name made lowercase.
     paisorigem = models.CharField(
         db_column='PaisOrigem', max_length=255, blank=True)
-    # Field name made lowercase.
     nat = models.CharField(db_column='Nat', max_length=255, blank=True)
-    # Field name made lowercase.
     uf = models.CharField(db_column='UF', max_length=2, blank=True)
-    # Field name made lowercase. Field renamed to remove unsuitable characters.
     ra_a = models.CharField(db_column='Ra\xe7a', max_length=765, blank=True)
-    # Field name made lowercase.
     cnh = models.FloatField(db_column='CNH', blank=True, null=True)
-    # Field name made lowercase.
     ufcnh = models.CharField(db_column='UFcnh', max_length=2, blank=True)
-    # Field name made lowercase.
     categoria = models.CharField(
         db_column='Categoria', max_length=3, blank=True)
     datacnh = models.DateTimeField(blank=True, null=True)
     validadecnh = models.DateTimeField(blank=True, null=True)
-    # Field name made lowercase.
     creserva = models.FloatField(db_column='Creserva', blank=True, null=True)
-    # Field name made lowercase.
     seriecr = models.IntegerField(db_column='SerieCR', blank=True, null=True)
     orgaocr = models.CharField(max_length=2, blank=True)
-    # Field name made lowercase.
     categoriacr = models.CharField(
         db_column='CategoriaCR', max_length=255, blank=True)
-    # Field name made lowercase.
     anoservico = models.IntegerField(
         db_column='AnoServico', blank=True, null=True)
-    # Field name made lowercase.
     cdi = models.IntegerField(db_column='CDI', blank=True, null=True)
-    # Field name made lowercase.
     umilitar = models.CharField(db_column='UMilitar', max_length=8, blank=True)
-    # Field name made lowercase.
     ufservico = models.CharField(
         db_column='UFservico', max_length=2, blank=True)
     conjuge = models.CharField(max_length=255, blank=True)
-    # Field name made lowercase.
     localfoto = models.CharField(
         db_column='LocalFoto', max_length=255, blank=True)
     area = models.CharField(max_length=255, blank=True)
     subarea = models.CharField(max_length=255, blank=True)
-    # Field name made lowercase.
     status = models.CharField(db_column='Status', max_length=255, blank=True)
-    # Field name made lowercase.
     datadesliga = models.DateTimeField(
         db_column='Datadesliga', blank=True, null=True)
-    # Field name made lowercase.
     unidade = models.CharField(db_column='Unidade', max_length=255, blank=True)
     dtinclusao = models.DateTimeField(blank=True, null=True)
-    # Field name made lowercase.
     nis = models.FloatField(db_column='NIS', blank=True, null=True)
     usuario = models.CharField(max_length=255, blank=True)
     datareg = models.DateTimeField(blank=True, null=True)
     responsavel = models.IntegerField(blank=True, null=True)
-    # Field name made lowercase.
     ctps = models.FloatField(db_column='CTPS', blank=True, null=True)
-    # Field name made lowercase. Field renamed to remove unsuitable characters.
     s_riectps = models.IntegerField(
         db_column='S\xe9rieCTPS', blank=True, null=True)
-    # Field name made lowercase.
     rc = models.DecimalField(
         db_column='RC', max_digits=19, decimal_places=4, blank=True, null=True)
-    # Field name made lowercase.
     acl = models.IntegerField(db_column='ACL', blank=True, null=True)
-    # Field name made lowercase.
     pcd = models.IntegerField(db_column='PCD', blank=True, null=True)
-    # Field name made lowercase.
     pi = models.IntegerField(db_column='PI', blank=True, null=True)
-    # Field name made lowercase.
     cg = models.IntegerField(db_column='CG', blank=True, null=True)
     turno = models.CharField(max_length=255, blank=True)
     cdfamilia = models.FloatField(blank=True, null=True)
     matricula = models.IntegerField(blank=True, null=True)
     horareg = models.DateTimeField(blank=True, null=True)
     limiteat = models.DateTimeField(blank=True, null=True)
-    # Field name made lowercase.
     diativ = models.DateTimeField(db_column='DIAtiv', blank=True, null=True)
 
     class Meta:

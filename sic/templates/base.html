@@ -23,7 +23,7 @@
                 <li class="name">
                     <h1><a href="#">Sistema Integrado CIAS</a></h1>
                 </li>
-                <li class="toggle-topbar menu-icon"><a href="#"><span>Menux</span></a></li>
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
             </ul>
         </nav>
     </div>
@@ -44,6 +44,13 @@
 
     {% block conteudo %}
     {% endblock conteudo %}
+
+    <div id="modal_erro" class="reveal-modal small" data-reveal>
+      <h2>Ops...</h2>
+      <p class="lead">Alguma coisa aconteceu!</p>
+      <p><b>{% block modal_erro %}{% endblock %}</b></p>
+      <a class="close-reveal-modal">&#215;</a>
+    </div>
 
     {% block modal %}
     {% endblock modal %}

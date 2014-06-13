@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Ponto | SIC{% endblock %}
+
+{% block conteudo %}
+
+    <div class="row" align="center">
+        <h2>Ponto</h2><hr>
+    </div>
+
+    <div class="row">
+        <div class="large-4 medium-4 columns"><p></p></div>
+        <div class="large-4 medium-4 columns panel">
+            <form action="/ponto/registro/" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="large-12 columns">
+                        <input type="text" placeholder="Matrícula" name="matricula" id="matricula" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="large-2 medium-2 columns"><p></p></div>
+                    <div class="large-8 medium-8 columns">
+                        <button class="postfix radius">Registrar Ponto</button>
+                    </div>
+                    <div class="large-2 medium-2 columns"><p></p></div>
+                </div>
+            </form>
+        </div>
+        <div class="large-4 medium-4 columns"><p></p></div>
+    </div>
+
+{% endblock %}
+
+{% block modal_erro %}Capacitando não encontrado ou inativo(a).{% endblock %}
+
+{% block scripts_rodape %}
+
+    <script type="text/javascript">
+        document.getElementById('matricula').focus();
+    </script>
+
+    {% if capacitando_inativo == True %}
+        <script type="text/javascript">
+            $('#modal_erro').foundation('reveal', 'open');
+        </script>
+    {% endif %}
+{% endblock %}

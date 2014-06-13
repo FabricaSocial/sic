@@ -20,21 +20,12 @@
 
 {% endblock %}
 
-{% block modal %}
-
-    <div id="erro_login" class="small reveal-modal" data-reveal>
-        <h2>Ops...</h2>
-        <p class="lead">Alguma coisa aconteceu!</p>
-        
-        {% if erro_login == 1 %}
-            <p>Parece que esse usuário está desativado.</p>
-        {% elif erro_login == 2 %}
-            <p>Usuário ou senha inválidos.</p>
-        {% endif %}
-
-        <a class="close-reveal-modal">&#215;</a>
-    </div>
-
+{% block modal_erro %}
+    {% if erro_login == 1 %}
+        Parece que esse usuário está desativado.
+    {% elif erro_login == 2 %}
+        Usuário ou senha inválidos.
+    {% endif %}
 {% endblock %}
 
 {% block scripts_rodape %}
@@ -44,7 +35,7 @@
 
     {% if erro_login != None %}
         <script type="text/javascript">
-            $('#erro_login').foundation('reveal', 'open');
+            $('#modal_erro').foundation('reveal', 'open');
         </script>
     {% endif %}
 {% endblock %}
