@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from access_db.models import Tabfuncionarios
 
-from ponto import obter_tipo_entrada
+from ponto import obter_turno
 
 
 @login_required(login_url='/login/')
@@ -21,12 +21,15 @@ def ponto(request):
 @login_required(login_url='/login/')
 def registro(request):
     matricula_ponto = request.POST['matricula']
+    user = request.user
 
     try:
         capacitando = Tabfuncionarios.objects.get(
             matricula=matricula_ponto, status="ATIVO(A)"
         )
-        print obter_tipo_entrada()
+        capacitando.user = user
+        obter_turno(capacitando)
+
     except Exception, e:
         return render_to_response(
             'ponto.html', {
