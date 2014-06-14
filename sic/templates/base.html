@@ -25,6 +25,28 @@
                 </li>
                 <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
             </ul>
+
+            {% if user.is_authenticated %}
+
+              <section class="top-bar-section">
+                <ul class="right">
+                  <li class="has-dropdown">
+                    <a href="">{{user}}</a>
+                    <ul class="dropdown">
+                      <li><a href="#">Alterar Senha</a></li>
+                    </ul>
+                  </li>
+
+                  <li class="divider"></li>
+
+                  <li class="active">
+                    <a href="/login/sair">Sair</a>
+                  </li>
+                </ul>
+              </section>
+
+            {% else %}
+            {% endif %}
         </nav>
     </div>
 
@@ -35,7 +57,7 @@
             <img src="{% static "img/gdf-logo.png" %}" alt="gdf-logo" align="left" width="10%">
 
             <div align="right">
-                <br><h2><b>Fabrica Social</b></h2>
+                <br><h2><b>Fábrica Social</b></h2>
                 <h4>Centro de Capacitacao Profissional - CIAS</h4>
             </div><br>
             <hr />
