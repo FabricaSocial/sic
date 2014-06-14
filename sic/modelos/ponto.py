@@ -30,3 +30,4 @@ class Ponto(models.Model):
     tipo_ponto = models.ForeignKey(TipoPonto)
     capacitando = models.ForeignKey(Capacitando)
     user = models.ForeignKey(User)
+    atraso = models.TimeField()

@@ -1,47 +1,65 @@
 # -*- coding: utf-8 -*-
+from django.utils import timezone
 
-from modelos.models import Ponto, Turno
-from datetime import datetime, time
+from modelos.models import Ponto, Turno, TipoPonto
+from datetime import time, timedelta
 
 
-def obter_turno(capacitando):
-    dia_hora = datetime.now()
+def obter_turno(request):
+    dia_hora = timezone.localtime(timezone.now())
     hora = dia_hora.time()
 
     if hora < time(13, 30):
-        turno_id = entrada_matutino(hora)
+        ponto = controle_turno(1)
     else:
-        turno_id = entrada_vespertino(hora)
+        ponto = controle_turno(2)
 
-    print turno_id
+    matricula_ponto = request.POST['matricula']
+
+    capacitando = Capacitando.objects.get(matricula=matricula_ponto) 
+
+    ponto.user = request.user
+
+    ponto.save()
+
+def controle_turno(turno_id):
     turno = Turno.objects.get(pk=turno_id)
 
+    dia_hora = timezone.localtime(timezone.now())
 
-def entrada_matutino(hora):
-    if hora >= time(7, 50) and hora < time(8, 30):
-        turno = 1
-    elif hora >= time(9, 30) and hora < time(10, 10):
-        turno = 2
-    elif hora >= time(10, 10) and hora < time(10, 50):
-        turno = 3
-    elif hora >= time(11, 30) and hora < time(12, 30):
-        turno = 4
+    ponto = Ponto()
+
+    try:
+        pontos = Ponto.objects.get(data=dia_hora.date())
+
+    except DoesNotExist:
+        pontos = []
+
+    if len(pontos) == 0:
+        ponto.atraso = calculo_atraso(dia_hora, turno.entrada)
+        ponto.tipo_ponto = TipoPonto.objects.get(pk=1)
+
+    elif len(pontos) == 1:
+        ponto.atraso = calculo_atraso(dia_hora, turno.saidaLanche)
+        ponto.tipo_ponto = TipoPonto.objects.get(pk=2)
+    elif len(pontos) == 2:
+        ponto.atraso = calculo_atraso(dia_hora, turno.entradaLanche)
+        ponto.tipo_ponto = TipoPonto.objects.get(pk=3)
     else:
-        turno = 5
+        ponto.atraso = calculo_atraso(dia_hora, turno.saida)
+        ponto.tipo_ponto = TipoPonto.objects.get(pk=4)
 
-    return turno
+    ponto.data = dia_hora.date()
+    ponto.hora = dia_hora.time()
 
+    return ponto
 
-def entrada_vespertino(hora):
-    if hora >= time(13, 50) and hora < time(14, 30):
-        turno = 1
-    elif hora >= time(15, 30) and hora < time(16, 10):
-        turno = 2
-    elif hora >= time(16, 10) and hora < time(16, 50):
-        turno = 3
-    elif hora >= time(17, 30) and hora < time(18, 30):
-        turno = 4
-    else:
-        turno = 5
+def calculo_atraso(agora, horario):
+    atraso = agora - timedelta(hours=horario.hour, minutes=horario.minute, seconds=horario.second)
 
-    return turno
+    atraso = atraso.time()
+
+    if atraso > time(0,15):
+        atraso = time(0, 0)
+    
+    return atraso
