@@ -13,3 +13,13 @@
     </div>
 
 {% endblock %}
+
+{% block modal_sucesso %}Sua senha foi alterada.{% endblock %}
+
+{% block scripts_rodape %}
+    {% if sucesso == True %}
+        <script type="text/javascript">
+            $('#modal_sucesso').foundation('reveal', 'open');
+        </script>
+    {% endif %}
+{% endblock %}

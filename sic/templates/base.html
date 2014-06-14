@@ -74,35 +74,14 @@
         <a class="close-reveal-modal">&#215;</a>
     </div>
 
-    <div id="modal_alterar_senha" class="reveal-modal small" data-reveal>
-        <h2>Alterar Senha</h2><hr>
-        <form action="" method="" data-abide>
-            <div class="row">
-                <div class="large-2 medium-2 columns"><p></p></div>
-                <div class="large-8 medium-8 columns password-field">
-                    <input type="password" id="senha" name="senha" placeholder="Nova Senha" required>
-                </div>
-                <div class="large-2 medium-2 columns"><p></p></div>
-            </div>
-
-            <div class="row">
-                <div class="large-2 medium-2 columns"><p></p></div>
-                <div class="large-8 medium-8 columns password-confirmation-field">
-                    <input type="password" id="confirma_senha" name="senha" placeholder="Confirme a Senha" data-equalto="senha" required>
-                    <small class="error">As senhas não conferem.</small>
-                </div>
-                <div class="large-2 medium-2 columns"><p></p></div>
-            </div>
-
-            <div class="row">
-                <div class="large-3 medium-3 columns"><p></p></div>
-                <div class="large-6 medium-6 columns password-confirmation-field">
-                    <button class="postfix radius">Alterar</button>
-                </div>
-                <div class="large-3 medium-3 columns"><p></p></div>
-            </div>
-        </form>
+    <div id="modal_sucesso" class="reveal-modal small" data-reveal>
+        <h2>Sucesso!!</h2>
+        <p class="lead">Operação realizada com sucesso!</p>
+        <p><b>{% block modal_sucesso %}{% endblock %}</b></p>
+        <a class="close-reveal-modal">&#215;</a>
     </div>
+
+    {% include 'alterar_senha.html' %}
 
     {% block modal %}
     {% endblock modal %}

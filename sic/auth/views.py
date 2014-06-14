@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from django.template import RequestContext
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 
 # Erros de Login
 USUARIO_INATIVO = 1
@@ -46,6 +45,22 @@ def entrar(request):
     )
 
 
+@login_required(login_url='/login/')
+def alterar_senha(request):
+    senha = request.POST['senha']
+    usuario = request.user
+
+    usuario.set_password(senha)
+    usuario.save()
+
+    return render_to_response(
+        'home.html',
+        {'sucesso': True},
+        context_instance=RequestContext(request)
+    )
+
+
+@login_required(login_url='/login/')
 def sair(request):
-  logout(request)
-  return HttpResponseRedirect('/')
+    logout(request)
+    return HttpResponseRedirect('/')
