@@ -21,7 +21,7 @@
         <nav class="top-bar" data-topbar data-options="sticky_on: large">
             <ul class="title-area">
                 <li class="name">
-                    <h1><a href="#">Sistema Integrado CIAS</a></h1>
+                    <h1><a href="/">Sistema Integrado CIAS</a></h1>
                 </li>
                 <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
             </ul>
@@ -33,7 +33,7 @@
                   <li class="has-dropdown">
                     <a href="">{{user}}</a>
                     <ul class="dropdown">
-                      <li><a href="#">Alterar Senha</a></li>
+                      <li><a href="" data-reveal-id="modal_alterar_senha">Alterar Senha</a></li>
                     </ul>
                   </li>
 
@@ -68,10 +68,40 @@
     {% endblock conteudo %}
 
     <div id="modal_erro" class="reveal-modal small" data-reveal>
-      <h2>Ops...</h2>
-      <p class="lead">Alguma coisa aconteceu!</p>
-      <p><b>{% block modal_erro %}{% endblock %}</b></p>
-      <a class="close-reveal-modal">&#215;</a>
+        <h2>Ops...</h2>
+        <p class="lead">Alguma coisa aconteceu!</p>
+        <p><b>{% block modal_erro %}{% endblock %}</b></p>
+        <a class="close-reveal-modal">&#215;</a>
+    </div>
+
+    <div id="modal_alterar_senha" class="reveal-modal small" data-reveal>
+        <h2>Alterar Senha</h2><hr>
+        <form action="" method="" data-abide>
+            <div class="row">
+                <div class="large-2 medium-2 columns"><p></p></div>
+                <div class="large-8 medium-8 columns password-field">
+                    <input type="password" id="senha" name="senha" placeholder="Nova Senha" required>
+                </div>
+                <div class="large-2 medium-2 columns"><p></p></div>
+            </div>
+
+            <div class="row">
+                <div class="large-2 medium-2 columns"><p></p></div>
+                <div class="large-8 medium-8 columns password-confirmation-field">
+                    <input type="password" id="confirma_senha" name="senha" placeholder="Confirme a Senha" data-equalto="senha" required>
+                    <small class="error">As senhas não conferem.</small>
+                </div>
+                <div class="large-2 medium-2 columns"><p></p></div>
+            </div>
+
+            <div class="row">
+                <div class="large-3 medium-3 columns"><p></p></div>
+                <div class="large-6 medium-6 columns password-confirmation-field">
+                    <button class="postfix radius">Alterar</button>
+                </div>
+                <div class="large-3 medium-3 columns"><p></p></div>
+            </div>
+        </form>
     </div>
 
     {% block modal %}
