@@ -54,3 +54,6 @@ docs/_build/
 
 # VIM files
 *.swp
+
+# Configuration Files
+database.py
