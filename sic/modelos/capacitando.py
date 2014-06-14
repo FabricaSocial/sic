@@ -2,14 +2,13 @@
 
 from django.db import models
 
-from modelos.dados_pessoa import Cidade, Pessoa
-from modelos.ponto import Turno
+from modelos.pessoa import Cidade, Pessoa
 
 
 class Categoria(models.Model):
 
     class Meta:
-        db_tabe = 'Categoria'
+        db_table = 'Categoria'
 
     def __unicode__(self):
         self.descricao
@@ -59,6 +58,21 @@ class Unidade(models.Model):
         self.cidade
 
     cidade = models.ForeignKey(Cidade)
+
+
+class Turno(models.Model):
+
+    class Meta:
+        db_table = 'Turno'
+
+    def __unicode__(self):
+        self.descricao
+
+    descricao = models.CharField(max_length=255)
+    entrada = models.TimeField(auto_now=True)
+    saida_lanche = models.TimeField(auto_now=True)
+    entrada_lanche = models.TimeField(auto_now=True)
+    saida = models.TimeField(auto_now=True)
 
 
 class Capacitando(models.Model):
