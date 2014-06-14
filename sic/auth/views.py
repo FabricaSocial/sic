@@ -48,3 +48,4 @@ def entrar(request):
 
 def sair(request):
   logout(request)
+  return HttpResponseRedirect('/')
