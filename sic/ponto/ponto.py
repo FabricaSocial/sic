@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from modelos.models import Ponto, TipoEntrada
+from modelos.models import Ponto, Turno
 from datetime import datetime, time
 
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from django.contrib.auth.models import User
 
 from modelos.capacitando import Capacitando
 
@@ -28,3 +29,4 @@ class Ponto(models.Model):
     hora = models.TimeField(auto_now=True)
     tipo_ponto = models.ForeignKey(TipoPonto)
     capacitando = models.ForeignKey(Capacitando)
+    user = models.ForeignKey(User)

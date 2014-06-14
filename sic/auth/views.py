@@ -44,3 +44,7 @@ def entrar(request):
         {'erro_login': erro_login},
         context_instance=RequestContext(request)
     )
+
+
+def sair(request):
+  logout(request)
