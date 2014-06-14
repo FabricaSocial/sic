@@ -1,0 +1,4 @@
+engine = 'mysql'
+name = 'sic'
+user = ''
+password = ''
