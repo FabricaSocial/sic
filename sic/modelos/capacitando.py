@@ -19,7 +19,7 @@ class Categoria(models.Model):
 class NecessidadeEspecial(models.Model):
 
     class Meta:
-        db_table = 'NecessidadeEpecial'
+        db_table = 'NecessidadeEspecial'
 
     def __unicode__(self):
         pass
@@ -30,7 +30,7 @@ class NecessidadeEspecial(models.Model):
 class Especialidade(models.Model):
 
     class Meta:
-        db_table = 'Especialidades'
+        db_table = 'Especialidade'
 
     def __unicode__(self):
         pass
