@@ -1,35 +1,27 @@
 # -*- coding: utf-8 -*-
 from django.utils import timezone
 
-from modelos.models import Ponto, Turno, TipoPonto
+from modelos.ponto import Ponto, TipoPonto
 from datetime import time, timedelta
+from django.core.exceptions import ObjectDoesNotExist
 
 
-def obter_turno(capacitando):
-    dia_hora = timezone.localtime(timezone.now())
-    hora = dia_hora.time()
+def registrar_ponto(capacitando, user):
+    pass
 
-    if hora < time(13, 30):
-        ponto = controle_turno(1)
-    else:
-        ponto = controle_turno(2)
 
-    ponto.capacitando = capacitando
-    ponto.user = request.user
-
-    ponto.save()
-
-def controle_turno(turno_id):
-    turno = Turno.objects.get(pk=turno_id)
-
+def controle_turno(turno, capacitando):
     dia_hora = timezone.localtime(timezone.now())
 
     ponto = Ponto()
 
     try:
-        pontos = Ponto.objects.get(data=dia_hora.date())
+        pontos = Ponto.objects.get(
+            data=dia_hora.date(),
+            capacitando=capacitando,
+            tipo_ponto__id=1)
 
-    except DoesNotExist:
+    except ObjectDoesNotExist:
         pontos = []
 
     if len(pontos) == 0:
@@ -51,12 +43,15 @@ def controle_turno(turno_id):
 
     return ponto
 
+
 def calculo_atraso(agora, horario):
-    atraso = agora - timedelta(hours=horario.hour, minutes=horario.minute, seconds=horario.second)
+    atraso = agora - \
+        timedelta(hours=horario.hour,
+                  minutes=horario.minute, seconds=horario.second)
 
     atraso = atraso.time()
 
-    if atraso < time(0,15):
+    if atraso < time(0, 15):
         atraso = time(0, 0)
-    
+
     return atraso

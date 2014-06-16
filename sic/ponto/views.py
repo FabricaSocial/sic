@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django.template import RequestContext
-from django.shortcuts import render_to_response, redirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
 
-from access_db.models import Tabfuncionarios
-
-from ponto import obter_turno
+from modelos.capacitando import Capacitando
+from ponto import registrar_ponto
 
 
 @login_required(login_url='/login/')
@@ -24,13 +23,12 @@ def registro(request):
     user = request.user
 
     try:
-        capacitando = Tabfuncionarios.objects.get(
-            matricula=matricula_ponto, status="ATIVO(A)"
-        )
-        capacitando.user = user
-        obter_turno(capacitando)
+        capacitando = Capacitando.objects.get(
+            matricula=matricula_ponto, status=1)
 
-    except Exception, e:
+        registrar_ponto(capacitando, user)
+
+    except ObjectDoesNotExist:
         return render_to_response(
             'ponto.html', {
                 'capacitando_inativo': True
