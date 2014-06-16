@@ -11,7 +11,7 @@ class Categoria(models.Model):
         db_table = 'Categoria'
 
     def __unicode__(self):
-        self.descricao
+        return self.descricao
 
     descricao = models.CharField(max_length=255)
 
@@ -22,7 +22,7 @@ class NecessidadeEspecial(models.Model):
         db_table = 'NecessidadeEspecial'
 
     def __unicode__(self):
-        pass
+        return self.descricao
 
     descricao = models.CharField(max_length=255)
 
@@ -33,7 +33,7 @@ class Especialidade(models.Model):
         db_table = 'Especialidade'
 
     def __unicode__(self):
-        pass
+        return self.descricao
 
     descricao = models.CharField(max_length=255)
 
@@ -44,7 +44,7 @@ class AreaAtuacao(models.Model):
         db_table = 'AreaAtuacao'
 
     def __unicode__(self):
-        pass
+        return self.descricao
 
     descricao = models.CharField(max_length=255)
 
@@ -55,7 +55,7 @@ class Unidade(models.Model):
         db_table = 'Unidade'
 
     def __unicode__(self):
-        self.cidade
+        return self.cidade
 
     cidade = models.ForeignKey(Cidade)
 
@@ -66,7 +66,7 @@ class Turno(models.Model):
         db_table = 'Turno'
 
     def __unicode__(self):
-        self.descricao
+        return self.descricao
 
     descricao = models.CharField(max_length=255)
     entrada = models.TimeField(auto_now=True)
@@ -81,7 +81,7 @@ class Capacitando(models.Model):
         db_table = 'Capacitando'
 
     def __unicode__(self):
-        pass
+        return self.pessoa.nome
 
     matricula = models.BigIntegerField()
     identificacao_social = models.BigIntegerField(null=True)
@@ -108,7 +108,7 @@ class Desligamento(models.Model):
         db_table = 'Desligamento'
 
     def __unicode__(self):
-        self.capacitando
+        return self.capacitando
 
     data = models.DateField()
     capacitando = models.ForeignKey(Capacitando)

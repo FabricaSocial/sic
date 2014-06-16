@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.utils import timezone
 
-from modelos.ponto import Ponto
+from modelos.ponto import Ponto, TipoPonto
 from django.core.exceptions import ObjectDoesNotExist
 
 
@@ -33,12 +33,12 @@ def obtem_tipo_ponto(turno):
 
     tipo_ponto = 0
     if dia_hora.time() < turno.saida_lanche:
-        tipo_ponto = 1
+        tipo_ponto = TipoPonto.objects.get(pk=1)
     elif dia_hora.time() < turno.entrada_lanche:
-        tipo_ponto = 2
+        tipo_ponto = TipoPonto.objects.get(pk=2)
     elif dia_hora.time() < turno.saida:
-        tipo_ponto = 3
+        tipo_ponto = TipoPonto.objects.get(pk=3)
     else:
-        tipo_ponto = 4
+        tipo_ponto = TipoPonto.objects.get(pk=4)
 
     return tipo_ponto

@@ -12,7 +12,7 @@ class TipoPonto(models.Model):
         db_table = 'TipoPonto'
 
     def __unicode__(self):
-        self.descricao
+        return self.descricao
 
     descricao = models.CharField(max_length=255)
 
@@ -23,7 +23,7 @@ class Ponto(models.Model):
         db_table = 'Ponto'
 
     def __unicode__(self):
-        self.capacitando.nome
+        return '%s - %s: %s' % (self.data, self.hora, self.capacitando)
 
     data = models.DateField(auto_now=True)
     hora = models.TimeField(auto_now=True)

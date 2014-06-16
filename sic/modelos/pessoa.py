@@ -136,7 +136,7 @@ class Pessoa(models.Model):
         db_table = 'Pessoa'
 
     def __unicode__(self):
-        self.nome
+        return self.nome
 
     cpf = models.BigIntegerField()
     nome = models.CharField(max_length=255)
@@ -174,7 +174,7 @@ class RegistroGeral(models.Model):
         db_table = 'RegistroGeral'
 
     def __unicode__(self):
-        self.rg
+        return self.rg
 
     rg = models.BigIntegerField()
     orgao_expedidor = models.CharField(max_length=255)
@@ -189,7 +189,7 @@ class ServicoMilitar(models.Model):
         db_table = 'ServicoMilitar'
 
     def __unicode__(self):
-        self.pessoa.nome
+        return self.pessoa.nome
 
     ano = models.IntegerField()
     pessoa = models.ForeignKey(Pessoa)
@@ -202,7 +202,7 @@ class CarteiraTrabalho(models.Model):
         db_table = 'CarteiraTrabalho'
 
     def __unicode__(self):
-        self.pessoa.nome
+        return self.pessoa.nome
 
     ctps = models.BigIntegerField()
     serie = models.IntegerField()
@@ -215,7 +215,7 @@ class Filiacao(models.Model):
         db_table = 'Filiacao'
 
     def __unicode__(self):
-        self.nome
+        return self.nome
 
     cpf = models.BigIntegerField()
     nome = models.CharField(max_length=255)
@@ -228,7 +228,7 @@ class CNH(models.Model):
         db_table = 'CNH'
 
     def __unicode__(self):
-        self.numero
+        return self.numero
 
     numero = models.BigIntegerField()
     data_emissao = models.DateField()
@@ -244,7 +244,7 @@ class Telefone(models.Model):
         db_table = 'Telefone'
 
     def __unicode__(self):
-        self.numero
+        return self.numero
 
     numero = models.BigIntegerField()
     tipo_telefone = models.ForeignKey(TipoTelefone)
@@ -257,7 +257,7 @@ class Email(models.Model):
         db_table = 'Email'
 
     def __unicode__(self):
-        self.endereco
+        return self.endereco
 
     endereco = models.CharField(max_length=255)
     pessoa = models.ForeignKey(Pessoa)
@@ -269,7 +269,7 @@ class TituloEleitor(models.Model):
         db_table = 'TituloEleitor'
 
     def __unicode__(self):
-        self.titulo
+        return self.titulo
 
     titulo = models.BigIntegerField()
     zona = models.IntegerField()
