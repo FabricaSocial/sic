@@ -5,7 +5,7 @@ from modelos.models import Ponto, Turno, TipoPonto
 from datetime import time, timedelta
 
 
-def obter_turno(request):
+def obter_turno(capacitando):
     dia_hora = timezone.localtime(timezone.now())
     hora = dia_hora.time()
 
@@ -14,10 +14,7 @@ def obter_turno(request):
     else:
         ponto = controle_turno(2)
 
-    matricula_ponto = request.POST['matricula']
-
-    capacitando = Capacitando.objects.get(matricula=matricula_ponto) 
-
+    ponto.capacitando = capacitando
     ponto.user = request.user
 
     ponto.save()
@@ -59,7 +56,7 @@ def calculo_atraso(agora, horario):
 
     atraso = atraso.time()
 
-    if atraso > time(0,15):
+    if atraso < time(0,15):
         atraso = time(0, 0)
     
     return atraso
