@@ -84,12 +84,12 @@ class Capacitando(models.Model):
         pass
 
     matricula = models.BigIntegerField()
-    identificacao_social = models.BigIntegerField()
+    identificacao_social = models.BigIntegerField(null=True)
     responsavel_familia = models.BooleanField()
-    familia = models.BigIntegerField()
+    familia = models.BigIntegerField(null=True)
     renda_per_capita = models.FloatField()
-    atualizacao_cadastral = models.DateField()
-    inicio_atividades = models.DateField(null=True)
+    atualizacao_cadastral = models.DateField(null=True)
+    inicio_atividades = models.DateField()
     status = models.BooleanField()
     data_registro = models.DateField()
     hora_registro = models.TimeField()
