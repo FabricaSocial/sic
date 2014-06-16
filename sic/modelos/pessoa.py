@@ -62,7 +62,7 @@ class Etnia(models.Model):
         db_table = 'Etnia'
 
     def __unicode__(self):
-        return self.nome
+        return self.descricao
 
     descricao = models.CharField(max_length=255)
 
@@ -98,7 +98,7 @@ class Naturalidade(models.Model):
         db_table = 'Naturalidade'
 
     def __unicode__(self):
-        return self.cidade
+        return self.cidade.nome
 
     pais = models.ForeignKey(Pais)
     cidade = models.ForeignKey(Cidade, null=True)
@@ -125,7 +125,7 @@ class EstadoCivil(models.Model):
         db_table = 'EstadoCivil'
 
     def __unicode__(self):
-      return self.descricao
+        return self.descricao
 
     descricao = models.CharField(max_length=255)
 
@@ -189,7 +189,7 @@ class ServicoMilitar(models.Model):
         db_table = 'ServicoMilitar'
 
     def __unicode__(self):
-        self.pessoa
+        self.pessoa.nome
 
     ano = models.IntegerField()
     pessoa = models.ForeignKey(Pessoa)
@@ -202,7 +202,7 @@ class CarteiraTrabalho(models.Model):
         db_table = 'CarteiraTrabalho'
 
     def __unicode__(self):
-        self.pessoa
+        self.pessoa.nome
 
     ctps = models.BigIntegerField()
     serie = models.IntegerField()
