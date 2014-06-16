@@ -101,8 +101,8 @@ class Naturalidade(models.Model):
         return self.cidade
 
     pais = models.ForeignKey(Pais)
-    cidade = models.ForeignKey(Cidade)
-    uf = models.ForeignKey(UF)
+    cidade = models.ForeignKey(Cidade, null=True)
+    uf = models.ForeignKey(UF, null=True)
 
 
 class Endereco(models.Model):
@@ -143,7 +143,7 @@ class Pessoa(models.Model):
     data_nascimento = models.DateField()
     sexo = models.BooleanField()
     filhos = models.BooleanField()
-    foto = models.CharField(max_length=255)
+    foto = models.CharField(max_length=255, null=True)
     etnia = models.ForeignKey(Etnia)
     tipo_identidade = models.ForeignKey(TipoIdentidade)
     estado_civil = models.ForeignKey(EstadoCivil)

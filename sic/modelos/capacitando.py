@@ -89,7 +89,7 @@ class Capacitando(models.Model):
     familia = models.BigIntegerField()
     renda_per_capita = models.FloatField()
     atualizacao_cadastral = models.DateField()
-    inicio_atividades = models.DateField()
+    inicio_atividades = models.DateField(null=True)
     status = models.BooleanField()
     data_registro = models.DateField()
     hora_registro = models.TimeField()
