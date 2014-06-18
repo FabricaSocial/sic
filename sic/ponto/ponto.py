@@ -6,10 +6,11 @@ from django.core.exceptions import ObjectDoesNotExist
 
 PONTO_ENTRADA = 1
 PONTO_SAIDA_LANCHE = 2
+PONTO_ENTRADA_LANCHE = 3
 
 
 def registrar_ponto(capacitando, user):
-    tipo_ponto = TipoPonto.objects.get(pk=1)
+    tipo_ponto = obtem_tipo_ponto(capacitando)
 
     ponto = Ponto()
     ponto.capacitando = capacitando
@@ -21,7 +22,7 @@ def registrar_ponto(capacitando, user):
 def verifica_ponto(capacitando, ponto):
     dia_hora = timezone.localtime(timezone.now())
     try:
-        Ponto.objects.get(
+        ponto = Ponto.objects.get(
             data=dia_hora.date(),
             capacitando=capacitando,
             tipo_ponto__id=ponto)
@@ -44,9 +45,12 @@ def obtem_tipo_ponto(capacitando):
 
         elif dia_hora.time() < capacitando.turno.saida:
             if not verifica_ponto(capacitando, PONTO_SAIDA_LANCHE):
-                tipo_ponto = TipoPonto.objects.get(pk=3)
-            else:
                 tipo_ponto = TipoPonto.objects.get(pk=4)
+
+            elif verifica_ponto(capacitando, PONTO_ENTRADA_LANCHE):
+                tipo_ponto = TipoPonto.objects.get(pk=4)
+            else:
+                tipo_ponto = TipoPonto.objects.get(pk=3)
         else:
             tipo_ponto = TipoPonto.objects.get(pk=4)
 
