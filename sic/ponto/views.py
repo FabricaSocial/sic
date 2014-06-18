@@ -43,5 +43,19 @@ def registro(request):
 
 
 def registrar_ponto_ajax(request, matricula):
-    print matricula
-    return HttpResponse('qualquer coisa')
+    mensagem = ""
+
+    try:
+        capacitando = Capacitando.objects.get(
+            matricula=matricula)
+
+        if capacitando.status:
+            mensagem = "Ponto registrado com sucesso!"
+        else:
+            mensagem = "Capacitando Inativo."
+
+        registrar_ponto(capacitando, request.user)
+
+    except ObjectDoesNotExist:
+        mensagem = "Capacitando não cadastrado."
+    return HttpResponse(mensagem)
