@@ -70,9 +70,13 @@ class Turno(models.Model):
 
     descricao = models.CharField(max_length=255, null=True)
     entrada = models.TimeField(auto_now=True, null=True)
+    entrada_tolerancia = models.TimeField(null=True)
     saida_lanche = models.TimeField(auto_now=True, null=True)
+    saida_lanche_tolerancia = models.TimeField(null=True)
     entrada_lanche = models.TimeField(auto_now=True, null=True)
+    entrada_lanche_tolerancia = models.TimeField(null=True)
     saida = models.TimeField(auto_now=True, null=True)
+    saida_tolerancia = models.TimeField(null=True)
 
 
 class Capacitando(models.Model):

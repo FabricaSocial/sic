@@ -18,6 +18,8 @@ def registrar_ponto(capacitando, user):
     ponto.user = user
     ponto.save()
 
+    return ponto
+
 
 def verifica_ponto(capacitando, ponto):
     dia_hora = timezone.localtime(timezone.now())
@@ -55,3 +57,20 @@ def obtem_tipo_ponto(capacitando):
             tipo_ponto = TipoPonto.objects.get(pk=4)
 
     return tipo_ponto
+
+
+def verifica_tolerancia(capacitando, ponto):
+    dia_hora = timezone.localtime(timezone.now())
+
+    dentro_da_tolerancia = True
+
+    if ponto.tipo_ponto.id == 1:
+        dentro_da_tolerancia = dia_hora.time() < capacitando.turno.entrada_tolerancia
+    elif ponto.tipo_ponto.id == 2:
+        dentro_da_tolerancia = dia_hora.time() < capacitando.turno.saida_lanche_tolerancia
+    elif ponto.tipo_ponto.id == 3:
+        dentro_da_tolerancia = dia_hora.time() < capacitando.turno.entrada_lanche_tolerancia
+    else:
+        dentro_da_tolerancia = dia_hora.time() < capacitando.turno.saida_tolerancia
+
+    return dentro_da_tolerancia

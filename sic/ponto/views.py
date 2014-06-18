@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
 
 from modelos.capacitando import Capacitando
-from ponto import registrar_ponto
+from ponto import registrar_ponto, verifica_tolerancia
 
 
 @login_required(login_url='/login/')
@@ -49,13 +49,21 @@ def registrar_ponto_ajax(request, matricula):
         capacitando = Capacitando.objects.get(
             matricula=matricula)
 
+        ponto = registrar_ponto(capacitando, request.user)
+
+        tolerancia = verifica_tolerancia(capacitando, ponto)
+        
         if capacitando.status:
-            mensagem = "Ponto registrado com sucesso!"
+            if tolerancia:
+                mensagem = "Ponto registrado com sucesso!"
+            else:
+                mensagem = "Fora do horário de ponto permitido!"
         else:
             mensagem = "Capacitando Inativo."
 
-        registrar_ponto(capacitando, request.user)
-
     except ObjectDoesNotExist:
         mensagem = "Capacitando não cadastrado."
+
+    
+
     return HttpResponse(mensagem)
