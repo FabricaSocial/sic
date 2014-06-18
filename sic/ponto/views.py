@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.http import HttpResponse
 
 from modelos.capacitando import Capacitando
 from ponto import registrar_ponto
@@ -39,3 +40,8 @@ def registro(request):
         'home.html',
         context_instance=RequestContext(request),
     )
+
+
+def registrar_ponto_ajax(request, matricula):
+    print matricula
+    return HttpResponse('qualquer coisa')

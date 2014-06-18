@@ -5,50 +5,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>{% block titulo%}Sistema Integrado CIAS{% endblock titulo%}</title>
+    <title>{% block titulo%}Sistema Integrado CIAS{% endblock %}</title>
 
     {% block css %}
         {% load staticfiles %}
         <link rel="stylesheet" href="{% static "foundation/css/foundation.css" %}" />
-    {% endblock css %}
+    {% endblock %}
     
     {% block scripts_cabecalho %}
-    {% endblock scripts_cabecalho %}
+    {% endblock %}
 </head>
 
 <body>
-    <div class=" sticky">
-        <nav class="top-bar" data-topbar data-options="sticky_on: large">
-            <ul class="title-area">
-                <li class="name">
-                    <h1><a href="/">Sistema Integrado CIAS</a></h1>
-                </li>
-                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-            </ul>
-
-            {% if user.is_authenticated %}
-
-              <section class="top-bar-section">
-                <ul class="right">
-                  <li class="has-dropdown">
-                    <a href="">{{user}}</a>
-                    <ul class="dropdown">
-                      <li><a href="" data-reveal-id="modal_alterar_senha">Alterar Senha</a></li>
-                    </ul>
-                  </li>
-
-                  <li class="divider"></li>
-
-                  <li class="active">
-                    <a href="/login/sair">Sair</a>
-                  </li>
-                </ul>
-              </section>
-
-            {% else %}
-            {% endif %}
-        </nav>
-    </div>
+    {% block top-bar %}{% include 'top-bar.html' %}{% endblock %}
 
     <br>
     <div class="row">
@@ -65,7 +34,7 @@
     </div>
 
     {% block conteudo %}
-    {% endblock conteudo %}
+    {% endblock %}
 
     <div id="modal_erro" class="reveal-modal small" data-reveal>
         <h2>Ops...</h2>
@@ -84,10 +53,10 @@
     {% include 'alterar_senha.html' %}
 
     {% block modal %}
-    {% endblock modal %}
+    {% endblock %}
 
     {% block graficos %}
-    {% endblock graficos %}
+    {% endblock %}
 
     {% load staticfiles %}
     <script src="{% static "foundation/js/vendor/modernizr.js" %}"></script>
@@ -98,6 +67,9 @@
       $(document).foundation();
     </script>
 
+    {% block scripts_ajax %}
+    {% endblock %}
+    
     {% block scripts_rodape %}
-    {% endblock scripts_rodape %}
+    {% endblock %}
 </body>
