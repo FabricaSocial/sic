@@ -9,7 +9,7 @@ class CategoriaCNH(models.Model):
     def __unicode__(self):
         return self.categoria
 
-    categoria = models.CharField(max_length=255)
+    categoria = models.CharField(max_length=255, null=True)
 
 
 class Nacionalidade(models.Model):
@@ -20,7 +20,7 @@ class Nacionalidade(models.Model):
     def __unicode__(self):
         return self.descricao
 
-    descricao = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=255, null=True)
 
 
 class TipoIdentidade(models.Model):
@@ -31,7 +31,7 @@ class TipoIdentidade(models.Model):
     def __unicode__(self):
         return self.descricao
 
-    descricao = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=255, null=True)
 
 
 class TipoTelefone(models.Model):
@@ -42,7 +42,7 @@ class TipoTelefone(models.Model):
     def __unicode__(self):
         return self.descricao
 
-    descricao = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=255, null=True)
 
 
 class Pais(models.Model):
@@ -53,7 +53,7 @@ class Pais(models.Model):
     def __unicode__(self):
         return self.nome
 
-    nome = models.CharField(max_length=255)
+    nome = models.CharField(max_length=255, null=True)
 
 
 class Etnia(models.Model):
@@ -64,7 +64,7 @@ class Etnia(models.Model):
     def __unicode__(self):
         return self.descricao
 
-    descricao = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=255, null=True)
 
 
 class UF(models.Model):
@@ -75,9 +75,9 @@ class UF(models.Model):
     def __unicode__(self):
         return self.abreviacao
 
-    pais = models.ForeignKey(Pais)
-    abreviacao = models.CharField(max_length=2)
-    nome = models.CharField(max_length=255)
+    pais = models.ForeignKey(Pais, null=True)
+    abreviacao = models.CharField(max_length=2, null=True)
+    nome = models.CharField(max_length=255, null=True)
 
 
 class Cidade(models.Model):
@@ -88,8 +88,8 @@ class Cidade(models.Model):
     def __unicode__(self):
         return self.nome
 
-    uf = models.ForeignKey(UF)
-    nome = models.CharField(max_length=255)
+    uf = models.ForeignKey(UF, null=True)
+    nome = models.CharField(max_length=255, null=True)
 
 
 class Naturalidade(models.Model):
@@ -100,7 +100,7 @@ class Naturalidade(models.Model):
     def __unicode__(self):
         return self.cidade.nome
 
-    pais = models.ForeignKey(Pais)
+    pais = models.ForeignKey(Pais, null=True)
     cidade = models.ForeignKey(Cidade, null=True)
     uf = models.ForeignKey(UF, null=True)
 
@@ -113,10 +113,10 @@ class Endereco(models.Model):
     def __unicode__(self):
         return self.endereco
 
-    cep = models.BigIntegerField()
-    endereco = models.CharField(max_length=255)
-    bairro = models.CharField(max_length=255)
-    cidade = models.ForeignKey(Cidade)
+    cep = models.BigIntegerField(null=True)
+    endereco = models.CharField(max_length=255, null=True)
+    bairro = models.CharField(max_length=255, null=True)
+    cidade = models.ForeignKey(Cidade, null=True)
 
 
 class EstadoCivil(models.Model):
@@ -127,7 +127,7 @@ class EstadoCivil(models.Model):
     def __unicode__(self):
         return self.descricao
 
-    descricao = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=255, null=True)
 
 
 class Pessoa(models.Model):
@@ -138,18 +138,18 @@ class Pessoa(models.Model):
     def __unicode__(self):
         return self.nome
 
-    cpf = models.BigIntegerField()
-    nome = models.CharField(max_length=255)
-    data_nascimento = models.DateField()
-    sexo = models.BooleanField()
-    filhos = models.BooleanField()
+    cpf = models.BigIntegerField(null=True)
+    nome = models.CharField(max_length=255, null=True)
+    data_nascimento = models.DateField(null=True)
+    sexo = models.BooleanField(default=False)
+    filhos = models.BooleanField(default=False)
     foto = models.CharField(max_length=255, null=True)
-    etnia = models.ForeignKey(Etnia)
-    tipo_identidade = models.ForeignKey(TipoIdentidade)
-    estado_civil = models.ForeignKey(EstadoCivil)
-    endereco = models.ForeignKey(Endereco)
-    nacionalidade = models.ForeignKey(Nacionalidade)
-    naturalidade = models.ForeignKey(Naturalidade)
+    etnia = models.ForeignKey(Etnia, null=True)
+    tipo_identidade = models.ForeignKey(TipoIdentidade, null=True)
+    estado_civil = models.ForeignKey(EstadoCivil, null=True)
+    endereco = models.ForeignKey(Endereco, null=True)
+    nacionalidade = models.ForeignKey(Nacionalidade, null=True)
+    naturalidade = models.ForeignKey(Naturalidade, null=True)
 
 
 class Reservista(models.Model):
@@ -160,12 +160,12 @@ class Reservista(models.Model):
     def __unicode__(self):
         self.certificado
 
-    certificado = models.BigIntegerField()
-    serie = models.BigIntegerField()
-    orgao = models.CharField(max_length=255)
-    dispensa_incorporacao = models.BigIntegerField()
-    unidade_alistamento = models.CharField(max_length=255)
-    pessoa = models.ForeignKey(Pessoa)
+    certificado = models.BigIntegerField(null=True)
+    serie = models.BigIntegerField(null=True)
+    orgao = models.CharField(max_length=255, null=True)
+    dispensa_incorporacao = models.BigIntegerField(null=True)
+    unidade_alistamento = models.CharField(max_length=255, null=True)
+    pessoa = models.ForeignKey(Pessoa, null=True)
 
 
 class RegistroGeral(models.Model):
@@ -176,11 +176,11 @@ class RegistroGeral(models.Model):
     def __unicode__(self):
         return self.rg
 
-    rg = models.BigIntegerField()
-    orgao_expedidor = models.CharField(max_length=255)
-    data_expedicao = models.DateField()
-    pessoa = models.ForeignKey(Pessoa)
-    uf = models.ForeignKey(UF)
+    rg = models.BigIntegerField(null=True)
+    orgao_expedidor = models.CharField(max_length=255, null=True)
+    data_expedicao = models.DateField(null=True)
+    pessoa = models.ForeignKey(Pessoa, null=True)
+    uf = models.ForeignKey(UF, null=True)
 
 
 class ServicoMilitar(models.Model):
@@ -191,9 +191,9 @@ class ServicoMilitar(models.Model):
     def __unicode__(self):
         return self.pessoa.nome
 
-    ano = models.IntegerField()
-    pessoa = models.ForeignKey(Pessoa)
-    uf = models.ForeignKey(UF)
+    ano = models.IntegerField(null=True)
+    pessoa = models.ForeignKey(Pessoa, null=True)
+    uf = models.ForeignKey(UF, null=True)
 
 
 class CarteiraTrabalho(models.Model):
@@ -204,9 +204,9 @@ class CarteiraTrabalho(models.Model):
     def __unicode__(self):
         return self.pessoa.nome
 
-    ctps = models.BigIntegerField()
-    serie = models.IntegerField()
-    pessoa = models.ForeignKey(Pessoa)
+    ctps = models.BigIntegerField(null=True)
+    serie = models.IntegerField(null=True)
+    pessoa = models.ForeignKey(Pessoa, null=True)
 
 
 class Filiacao(models.Model):
@@ -217,9 +217,9 @@ class Filiacao(models.Model):
     def __unicode__(self):
         return self.nome
 
-    cpf = models.BigIntegerField()
-    nome = models.CharField(max_length=255)
-    pessoa = models.ForeignKey(Pessoa)
+    cpf = models.BigIntegerField(null=True)
+    nome = models.CharField(max_length=255, null=True)
+    pessoa = models.ForeignKey(Pessoa, null=True)
 
 
 class CNH(models.Model):
@@ -230,12 +230,12 @@ class CNH(models.Model):
     def __unicode__(self):
         return self.numero
 
-    numero = models.BigIntegerField()
-    data_emissao = models.DateField()
-    validade = models.DateField()
-    uf = models.ForeignKey(UF)
-    categoria_cnh = models.ForeignKey(CategoriaCNH)
-    pessoa = models.ForeignKey(Pessoa)
+    numero = models.BigIntegerField(null=True)
+    data_emissao = models.DateField(null=True)
+    validade = models.DateField(null=True)
+    uf = models.ForeignKey(UF, null=True)
+    categoria_cnh = models.ForeignKey(CategoriaCNH, null=True)
+    pessoa = models.ForeignKey(Pessoa, null=True)
 
 
 class Telefone(models.Model):
@@ -246,9 +246,9 @@ class Telefone(models.Model):
     def __unicode__(self):
         return self.numero
 
-    numero = models.BigIntegerField()
-    tipo_telefone = models.ForeignKey(TipoTelefone)
-    pessoa = models.ForeignKey(Pessoa)
+    numero = models.BigIntegerField(null=True)
+    tipo_telefone = models.ForeignKey(TipoTelefone, null=True)
+    pessoa = models.ForeignKey(Pessoa, null=True)
 
 
 class Email(models.Model):
@@ -259,8 +259,8 @@ class Email(models.Model):
     def __unicode__(self):
         return self.endereco
 
-    endereco = models.CharField(max_length=255)
-    pessoa = models.ForeignKey(Pessoa)
+    endereco = models.CharField(max_length=255, null=True)
+    pessoa = models.ForeignKey(Pessoa, null=True)
 
 
 class TituloEleitor(models.Model):
@@ -271,8 +271,8 @@ class TituloEleitor(models.Model):
     def __unicode__(self):
         return self.titulo
 
-    titulo = models.BigIntegerField()
-    zona = models.IntegerField()
-    secao = models.IntegerField()
-    pessoa = models.ForeignKey(Pessoa)
-    cidade = models.ForeignKey(Cidade)
+    titulo = models.BigIntegerField(null=True)
+    zona = models.IntegerField(null=True)
+    secao = models.IntegerField(null=True)
+    pessoa = models.ForeignKey(Pessoa, null=True)
+    cidade = models.ForeignKey(Cidade, null=True)

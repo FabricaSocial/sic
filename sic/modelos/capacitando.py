@@ -13,7 +13,7 @@ class Categoria(models.Model):
     def __unicode__(self):
         return self.descricao
 
-    descricao = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=255, null=True)
 
 
 class NecessidadeEspecial(models.Model):
@@ -24,7 +24,7 @@ class NecessidadeEspecial(models.Model):
     def __unicode__(self):
         return self.descricao
 
-    descricao = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=255, null=True)
 
 
 class Especialidade(models.Model):
@@ -35,7 +35,7 @@ class Especialidade(models.Model):
     def __unicode__(self):
         return self.descricao
 
-    descricao = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=255, null=True)
 
 
 class AreaAtuacao(models.Model):
@@ -46,7 +46,7 @@ class AreaAtuacao(models.Model):
     def __unicode__(self):
         return self.descricao
 
-    descricao = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=255, null=True)
 
 
 class Unidade(models.Model):
@@ -57,7 +57,7 @@ class Unidade(models.Model):
     def __unicode__(self):
         return self.cidade
 
-    cidade = models.ForeignKey(Cidade)
+    cidade = models.ForeignKey(Cidade, null=True)
 
 
 class Turno(models.Model):
@@ -68,11 +68,11 @@ class Turno(models.Model):
     def __unicode__(self):
         return self.descricao
 
-    descricao = models.CharField(max_length=255)
-    entrada = models.TimeField(auto_now=True)
-    saida_lanche = models.TimeField(auto_now=True)
-    entrada_lanche = models.TimeField(auto_now=True)
-    saida = models.TimeField(auto_now=True)
+    descricao = models.CharField(max_length=255, null=True)
+    entrada = models.TimeField(auto_now=True, null=True)
+    saida_lanche = models.TimeField(auto_now=True, null=True)
+    entrada_lanche = models.TimeField(auto_now=True, null=True)
+    saida = models.TimeField(auto_now=True, null=True)
 
 
 class Capacitando(models.Model):
@@ -83,23 +83,23 @@ class Capacitando(models.Model):
     def __unicode__(self):
         return self.pessoa.nome
 
-    matricula = models.BigIntegerField()
+    matricula = models.BigIntegerField(null=True)
     identificacao_social = models.BigIntegerField(null=True)
-    responsavel_familia = models.BooleanField()
+    responsavel_familia = models.BooleanField(default=False)
     familia = models.BigIntegerField(null=True)
-    renda_per_capita = models.FloatField()
+    renda_per_capita = models.FloatField(null=True)
     atualizacao_cadastral = models.DateField(null=True)
-    inicio_atividades = models.DateField()
-    status = models.BooleanField()
-    data_registro = models.DateField()
-    hora_registro = models.TimeField()
-    area_atuacao = models.ForeignKey(AreaAtuacao)
-    especialidade = models.ForeignKey(Especialidade)
-    pessoa = models.ForeignKey(Pessoa)
-    necessidade_especial = models.ForeignKey(NecessidadeEspecial)
-    categoria = models.ForeignKey(Categoria)
-    unidade = models.ForeignKey(Unidade)
-    turno = models.ForeignKey(Turno)
+    inicio_atividades = models.DateField(null=True)
+    status = models.BooleanField(default=True)
+    data_registro = models.DateField(null=True)
+    hora_registro = models.TimeField(null=True)
+    area_atuacao = models.ForeignKey(AreaAtuacao, null=True)
+    especialidade = models.ForeignKey(Especialidade, null=True)
+    pessoa = models.ForeignKey(Pessoa, null=True)
+    necessidade_especial = models.ForeignKey(NecessidadeEspecial, null=True)
+    categoria = models.ForeignKey(Categoria, null=True)
+    unidade = models.ForeignKey(Unidade, null=True)
+    turno = models.ForeignKey(Turno, null=True)
 
 
 class Desligamento(models.Model):
@@ -111,4 +111,4 @@ class Desligamento(models.Model):
         return self.capacitando
 
     data = models.DateField()
-    capacitando = models.ForeignKey(Capacitando)
+    capacitando = models.ForeignKey(Capacitando, null=True)

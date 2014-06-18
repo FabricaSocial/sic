@@ -14,7 +14,7 @@ class TipoPonto(models.Model):
     def __unicode__(self):
         return self.descricao
 
-    descricao = models.CharField(max_length=255)
+    descricao = models.CharField(max_length=255, null=True)
 
 
 class Ponto(models.Model):
@@ -25,8 +25,8 @@ class Ponto(models.Model):
     def __unicode__(self):
         return '%s - %s: %s' % (self.data, self.hora, self.capacitando)
 
-    data = models.DateField(auto_now=True)
-    hora = models.TimeField(auto_now=True)
-    tipo_ponto = models.ForeignKey(TipoPonto)
-    capacitando = models.ForeignKey(Capacitando)
-    user = models.ForeignKey(User)
+    data = models.DateField(auto_now=True, null=True)
+    hora = models.TimeField(auto_now=True, null=True)
+    tipo_ponto = models.ForeignKey(TipoPonto, null=True)
+    capacitando = models.ForeignKey(Capacitando, null=True)
+    user = models.ForeignKey(User, null=True)
