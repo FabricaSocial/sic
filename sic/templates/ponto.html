@@ -37,9 +37,11 @@
 
 {% block modal %}
 
-<div id="modal_ponto" class="reveal-modal small" data-reveal>
-  <h2>SIC - Ponto</h2>
-  <p id="ponto_mensagem"></p>
+<div id="modal_ponto" class="reveal-modal medium" data-reveal>
+  <center>
+    <img id="ponto_imagem">
+    <p id="ponto_mensagem" style="font-size:48px;"></p>
+  </center>
 </div>
 
 {% endblock %}
@@ -59,13 +61,29 @@
                 success: function(mensagem){
                     $('#ponto_mensagem').text(mensagem)
                     $('#modal_ponto').foundation('reveal', 'open');
+		    	          $('#ponto_imagem').attr('height', '400px');
+        		        $('#ponto_imagem').attr('width', '400px');
+            		    $('#ponto_imagem').attr('align', 'center');
+
+                    timeout = 0;
+
+        		        if(mensagem == "Ponto registrado com sucesso!")
+		                {
+                		    $('#ponto_imagem').attr('src', '../static/img/green-check.png');
+                        timeout = 1500;
+        		        }
+		                else
+		                {
+		    	              $('#ponto_imagem').attr('src', '../static/img/red-x.png');
+                        timeout = 5000;
+		                }
 
                     setTimeout(function(){
                         $('#modal_ponto').foundation('reveal', 'close');
                         $('#matricula').val('');
                         $('#matricula').attr('readonly', false);
                         $('#matricula').focus();
-                    }, 1500);
+                    }, timeout);
                 }
             });
         }
