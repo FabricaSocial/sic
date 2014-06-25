@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block titulo %}Painel de Controle | SIC{% endblock %}
+
+{% block conteudo %}
+    <div class="row" align="center">
+        <h1>Painel de Controle - SIC</h1><hr>
+    </div>
+
+    <div class="row">
+        <dl class="tabs" data-tab>
+            <dd><a href="#turno1">Ponto Matutino</a></dd>
+            <dd><a href="#turno2">Ponto Vespertino</a></dd>
+        </dl>
+        <div class="tabs-content">
+            {% for turno in turnos %}
+            <div class="content" id="turno{{turno.id}}">
+                <form action="/painel/ponto/" method="POST">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="large-2 medium-2 columns"><p></p></div>
+
+                        <div class="large-8 medium-8 columns">
+                            <div class="row">
+                                <h3>Turno: <b>{{turno.descricao}}</b></h3><hr>
+                                <input type="hidden" value="{{turno.id}}" name="id">
+                                <div class="large-6 medium-6 columns">
+                                    <div class="row collapse">
+                                        <div class="small-5 large-5 columns">
+                                            <span class="prefix">Entrada:</span>
+                                        </div>
+                                        <div class="small-7 large-7 columns">
+                                            <input type="time" value="{{turno.entrada}}" name="entrada">
+                                        </div>
+                                    </div>
+
+                                    <div class="row collapse">
+                                        <div class="small-5 large-5 columns">
+                                            <span class="prefix">Lanche:</span>
+                                        </div>
+                                        <div class="small-7 large-7 columns">
+                                            <input type="time" value="{{turno.saida_lanche}}" name="saida_lanche">
+                                        </div>
+                                    </div>
+
+                                    <div class="row collapse">
+                                        <div class="small-5 large-5 columns">
+                                            <span class="prefix">Volta do Lanche:</span>
+                                        </div>
+                                        <div class="small-7 large-7 columns">
+                                            <input type="time" value="{{turno.entrada_lanche}}" name="entrada_lanche">
+                                        </div>
+                                    </div>
+
+                                    <div class="row collapse">
+                                        <div class="small-5 large-5 columns">
+                                            <span class="prefix">Saída:</span>
+                                        </div>
+                                        <div class="small-7 large-7 columns">
+                                            <input type="time" value="{{turno.saida}}" name="saida">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="large-6 medium-6 columns">
+                                    <div class="row collapse">
+                                        <div class="small-5 large-5 columns">
+                                            <span class="prefix">Tolerância:</span>
+                                        </div>
+                                        <div class="small-7 large-7 columns">
+                                            <input type="time" value="{{turno.entrada_tolerancia}}" name="entrada_tolerancia">
+                                        </div>
+                                    </div>
+
+                                    <div class="row collapse">
+                                        <div class="small-5 large-5 columns">
+                                            <span class="prefix">Tolerância:</span>
+                                        </div>
+                                        <div class="small-7 large-7 columns">
+                                            <input type="time" value="{{turno.saida_lanche_tolerancia}}" name="saida_lanche_tolerancia">
+                                        </div>
+                                    </div>
+
+                                    <div class="row collapse">
+                                        <div class="small-5 large-5 columns">
+                                            <span class="prefix">Tolerância:</span>
+                                        </div>
+                                        <div class="small-7 large-7 columns">
+                                            <input type="time" value="{{turno.entrada_lanche_tolerancia}}" name="entrada_lanche_tolerancia">
+                                        </div>
+                                    </div>
+
+                                    <div class="row collapse">
+                                        <div class="small-5 large-5 columns">
+                                            <span class="prefix">Tolerância:</span>
+                                        </div>
+                                        <div class="small-7 large-7 columns">
+                                            <input type="time" value="{{turno.saida_tolerancia}}" name="saida_tolerancia">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="large-2 medium-2 columns"><p></p></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="large-5 medium-5 columns"><p></p></div>
+                        <div class="large-2 medium-2 columns" align="center">
+                            <button class="postfix radius">Alterar</button>
+                        </div>
+                        <div class="large-5 medium-5 columns"><p></p></div>
+                    </div>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>   
+
+{% endblock %}

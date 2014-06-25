@@ -2,6 +2,7 @@
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse
@@ -52,7 +53,7 @@ def registrar_ponto_ajax(request, matricula):
         ponto = registrar_ponto(capacitando, request.user)
 
         tolerancia = verifica_tolerancia(capacitando, ponto)
-        
+
         if capacitando.status:
             if tolerancia:
                 mensagem = "Ponto registrado com sucesso!"
@@ -64,6 +65,6 @@ def registrar_ponto_ajax(request, matricula):
     except ObjectDoesNotExist:
         mensagem = "Capacitando não cadastrado."
 
-    
+    print "mensagem"
 
     return HttpResponse(mensagem)
