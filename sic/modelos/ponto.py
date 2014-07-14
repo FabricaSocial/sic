@@ -29,4 +29,4 @@ class Ponto(models.Model):
     hora = models.TimeField(auto_now=True, null=True)
     tipo_ponto = models.ForeignKey(TipoPonto, null=True)
     capacitando = models.ForeignKey(Capacitando, null=True)
-    user = models.ForeignKey(User, null=True)
+    usuario = models.ForeignKey(User, null=True)
