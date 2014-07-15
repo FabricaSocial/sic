@@ -17,6 +17,9 @@ class Nacionalidade(models.Model):
     class Meta:
         db_table = 'Nacionalidade'
 
+    def natural_key(self):
+        return dict(id=self.id, descricao=self.descricao)
+
     def __unicode__(self):
         return self.descricao
 
@@ -27,6 +30,9 @@ class TipoIdentidade(models.Model):
 
     class Meta:
         db_table = 'TipoIdentidade'
+
+    def natural_key(self):
+        return dict(id=self.id, descricao=self.descricao)
 
     def __unicode__(self):
         return self.descricao
@@ -50,6 +56,9 @@ class Pais(models.Model):
     class Meta:
         db_table = 'Pais'
 
+    def natural_key(self):
+        return dict(id=self.id, nome=self.nome)
+
     def __unicode__(self):
         return self.nome
 
@@ -61,6 +70,9 @@ class Etnia(models.Model):
     class Meta:
         db_table = 'Etnia'
 
+    def natural_key(self):
+        return dict(id=self.id, descricao=self.descricao)
+
     def __unicode__(self):
         return self.descricao
 
@@ -71,6 +83,10 @@ class UF(models.Model):
 
     class Meta:
         db_table = 'UF'
+
+    def natural_key(self):
+        return dict(id=self.id, pais=self.pais.natural_key(),
+                    abreviacao=self.abreviacao, nome=self.nome)
 
     def __unicode__(self):
         return self.abreviacao
@@ -85,6 +101,10 @@ class Cidade(models.Model):
     class Meta:
         db_table = 'Cidade'
 
+    def natural_key(self):
+        return dict(id=self.id, uf=self.uf.natural_key(),
+                    nome=self.nome)
+
     def __unicode__(self):
         return self.nome
 
@@ -96,6 +116,12 @@ class Naturalidade(models.Model):
 
     class Meta:
         db_table = 'Naturalidade'
+
+    def natural_key(self):
+        return dict(id=self.id,
+                    pais=self.pais.natural_key(),
+                    cidade=self.cidade.natural_key(),
+                    uf=self.uf.natural_key())
 
     def __unicode__(self):
         return self.cidade.nome
@@ -109,6 +135,11 @@ class Endereco(models.Model):
 
     class Meta:
         db_table = 'Endereco'
+
+    def natural_key(self):
+        return dict(id=self.id, cep=self.cep,
+                    endereco=self.endereco, bairro=self.bairro,
+                    cidade=self.cidade.natural_key())
 
     def __unicode__(self):
         return self.endereco
@@ -124,6 +155,9 @@ class EstadoCivil(models.Model):
     class Meta:
         db_table = 'EstadoCivil'
 
+    def natural_key(self):
+        return dict(id=self.id, descricao=self.descricao)
+
     def __unicode__(self):
         return self.descricao
 
@@ -135,6 +169,9 @@ class Sexo(models.Model):
     class Meta:
         db_table = 'Sexo'
 
+    def natural_key(self):
+        return dict(id=self.id, descricao=self.descricao)
+
     def __unicode__(self):
         return self.descricao
 
@@ -145,7 +182,17 @@ class Pessoa(models.Model):
 
     class Meta:
         db_table = 'Pessoa'
-        unique_together = ('nome')
+
+    def natural_key(self):
+        return dict(id=self.id, cpf=self.cpf, nome=self.nome,
+                    data_nascimento=self.data_nascimento,
+                    sexo=self.sexo.natural_key(), filhos=self.filhos,
+                    foto=self.foto, etnia=self.etnia.natural_key(),
+                    tipo_identidade=self.tipo_identidade.natural_key(),
+                    estado_civil=self.estado_civil.natural_key(),
+                    endereco=self.endereco.natural_key(),
+                    nacionalidade=self.nacionalidade.natural_key(),
+                    naturalidade=self.naturalidade.natural_key())
 
     def __unicode__(self):
         return self.nome

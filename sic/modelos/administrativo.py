@@ -8,6 +8,9 @@ class Ramal(models.Model):
     class Meta:
         db_table = 'Ramal'
 
+    def natural_key(self):
+        return dict(id=self.id, ramal=self.ramal)
+
     def __unicode__(self):
         return "%s" % (self.ramal)
 
@@ -18,6 +21,10 @@ class Coordenadoria(models.Model):
 
     class Meta:
         db_table = 'Coordenadoria'
+
+    def natural_key(self):
+        return dict(id=self.id, descricao=self.descricao,
+                    abreviacao=self.abreviacao)
 
     def __unicode__(self):
         return self.descricao
@@ -42,8 +49,10 @@ class CoordenadoriaAdjunta(models.Model):
         return Departamento.objects.filter(
             coordenadoria_adjunta_id=self.id).order_by('descricao')
 
-    def as_dict():
-        return dict()
+    def natural_key(self):
+        return dict(id=self.id, descricao=self.descricao,
+                    abreviacao=self.abreviacao,
+                    coordenadoria=self.coordenadoria.natural_key())
 
     descricao = models.CharField(max_length=255, null=True)
     abreviacao = models.CharField(max_length=255, null=True)
@@ -58,6 +67,12 @@ class Departamento(models.Model):
 
     def __unicode__(self):
         return self.descricao
+
+    def natural_key(self):
+        return dict(id=self.id, descricao=self.descricao,
+                    abreviacao=self.abreviacao,
+                    coordenadoria_adjunta=self.coordenadoria_adjunta.natural_key(),
+                    ramal=self.ramal.natural_key())
 
     def obter_funcionarios(self):
         from modelos.funcionario import Funcionario

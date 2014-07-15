@@ -22,7 +22,7 @@ def listar_telefones(request):
 @login_required(login_url='/login')
 def obter_lista_departamentos_json(request):
     departamentos_json = serializers.serialize(
-        'json', Departamento.objects.all())
+        'json', Departamento.objects.all(), use_natural_keys=True)
     departamentos_list = json.loads(departamentos_json)
     return HttpResponse(
         json.dumps({'departamentos': departamentos_list}),
@@ -32,7 +32,7 @@ def obter_lista_departamentos_json(request):
 @login_required(login_url='/login')
 def obter_lista_funcionarios_json(request):
     funcionarios_json = serializers.serialize(
-        'json', Funcionario.objects.all())
+        'json', Funcionario.objects.all(), use_natural_keys=True)
     funcionarios_list = json.loads(funcionarios_json)
     return HttpResponse(
         json.dumps(
