@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Lista Telefônica | SIC{% endblock %}
+
+{% block conteudo %}
+
+<div class="row">
+    <nav class="top-bar" data-topbar>
+        <ul class="title-area">
+            <li class="name"><h1><a href="#">Telefones</a></h1></li>
+            <li class="toggle-topbar menu-icon"><a href="#"></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+            <ul class="right">
+                <li class="has-form">
+                <div class="row collapse">
+                    <div class="large-9 small-9 columns">
+                        <input id="procurar_funcionario" type="text" placeholder="Procurar Funcionário"
+                        onfocus="selecionarTabBusca();"
+                        onkeyup="buscaFuncionarios();"
+                        style="height: auto !important;padding-top: .35rem !important;padding-bottom: .35rem !important;">
+                    </div>
+                    <div class="large-3 small-3 columns">
+                        <a href="#" class="button expand">Buscar</a>
+                    </div>
+                </div>
+                </li>
+            </ul>
+        </section>
+    </nav>
+</div>
+
+<div class="row">
+    <dl class="tabs horizontal" data-tab>
+        <dd><a href="#panel1">COAD</a></dd>
+        <dd><a href="#panel2">COCAP</a></dd>
+        <dd><a href="#panel2">Outros</a></dd>
+    </dl>
+    <div class="tabs-content">
+        <div class="content" id="panel1">
+            <dl class="tabs vertical" data-tab>
+                <dd id="panel2" class="active"><a id="busca_tab" href="#pesquisa" align="center">Departamentos</a></dd>
+                @for(departamento <- departamentos){
+                <dd><a href="#departamento@departamento.getId()">
+                    <div class="row">
+                    <div class="large-10 columns" align="left">@departamento.getDescricao()</div>
+                    <div class="large-2 columns" align="center"><b>@departamento.getRamal()</b></div>
+                    </div>
+                    </a>
+                </dd>
+                }
+            </dl>
+            <div class="tabs-content vertical">
+
+                <div class="content active" id="pesquisa">
+                    <div class="row" align="right" id="divPesquisa">
+                        <p><h4 id="mensagemBusca">Para realizar um consulta por nome, utilize a pesquisa acima. </h4></p>
+                    </div>
+                </div>
+
+                @for(departamentos <- funcionarios){
+                <div class="content" id="departamento@(funcionarios.indexOf(departamentos)+1)">
+                    <div class="row" align="right">
+                        <br>
+                        <table>
+                            <thead>
+                                <th width="520">Nome</th>
+                                <th width="100">Ramal</th>
+                            </thead>
+
+                            <tbody>
+                            @for(funcionario <- departamentos){
+                                <tr>
+                                    <td>@funcionario.getPessoa()</td>
+                                    <td>@funcionario.getRamal()</td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+        <div class="content" id="panel2"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts_rodape %}
+
+    <script type="text/javascript">
+        function selecionarTabBusca(){
+            $('#busca_tab').click();
+        }
+    </script>
+
+    <script type="text/javascript">
+        function buscaFuncionarios(){
+            var nomeFuncionario = $('#procurar_funcionario').val();
+
+            $.ajax({
+                type: "GET",
+                url: "/listarFuncionarios/" + nomeFuncionario,
+                dataType: "json",
+                success: function(lista){
+                    var html =   '<br>'+
+                                        '<table>' +
+                                            '<thead>' +
+                                                '<th width="120">Departamento</th>' +
+                                                '<th width="400">Nome</th>' +
+                                                '<th width="100">Ramal</th>' +
+                                            '</thead>' +
+                                            '<tbody>';
+
+                    $.each(lista.funcionarios, function(i, funcionario){
+                        html = html + '<tr>' +
+                                                    '<td>' + funcionario.departamento.abreviacao + '</td>' +
+                                                    '<td>' + funcionario.pessoa.nome + '</td>' +
+                                                    '<td>' + funcionario.ramal.ramal + '</td>' +
+                                                '</tr>';
+                    })
+
+                    html = html + '</tbody></table>';
+
+                    $('#divPesquisa').html(html);
+                },
+                error: function(){
+                    $('#divPesquisa').html('<p><h4 id="mensagemBusca">Para realizar um consulta por nome, utilize a pesquisa acima. </h4></p>');
+
+                    if(nomeFuncionario == ""){
+                        $('#mensagemBusca').html("Para realizar um consulta por nome, utilize a pesquisa acima.");
+                    } else {
+                        $('#mensagemBusca').html("Desculpe.. Não encontramos nenhum funcionário com o nome: " + nomeFuncionario);
+                    }
+                }
+            })
+        }
+    </script>
+
+{% endblock %}
