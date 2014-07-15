@@ -1,0 +1,33 @@
+/* TABS-CONTENT */
+
+.tabs-content {
+  margin-bottom: 1.5rem;
+  width: 100%; }
+
+  .tabs-content:before, .tabs-content:after {
+    content: " ";
+    display: table; }
+
+  .tabs-content:after {
+    clear: both; }
+
+  .tabs-content > .content {
+    display: none;
+    float: left;
+    padding-top: 0%;
+    width: 100%; }
+
+    .tabs-content > .content.active {
+      display: block;
+      float: none; }
+
+    .tabs-content > .content.contained {
+      padding: 0.9375em; }
+
+  .tabs-content.vertical {
+    width: 664px;
+    display: block; }
+
+    .tabs-content.vertical > .content {
+      width: 100%;
+      padding: 0 0.9375em; }

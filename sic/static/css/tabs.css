@@ -1,0 +1,101 @@
+/* TABS */
+.tabs {
+  *zoom: 1;
+  margin-bottom: 0 !important; }
+
+  .tabs:before, .tabs:after {
+    content: " ";
+    display: table; }
+
+  .tabs:after {
+    clear: both; }
+
+/*TABS-VERTICAL*/
+
+.tabs.vertical {
+  width: 21rem; }
+
+  .tabs.vertical dd {
+    width: 100%;
+    position: relative;
+    text-align: justify;
+    vertical-align: middle;
+    margin-bottom: 0 !important;
+    float: left; }
+
+    .tabs.vertical dd:nth-child(odd)  > a  {
+      display: block;
+      background: #383838;
+      color: white;
+      padding: 0.3rem 2rem;
+      font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+      font-size: 1rem; }
+
+    .tabs.vertical dd:nth-child(even)  > a  {
+      display: block;
+      background: #2d2d2d;
+      color: white;
+      padding: 0.3rem 2rem;
+      font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+      font-size: 1rem; }
+
+      .tabs.vertical dd > a:hover {
+        background: #858585;
+        padding: 0.3rem 2.6rem;}
+
+    .tabs.vertical dd.active a {
+      background: #d3d3d3;
+      color: #333;
+      padding: 0.3rem 2.6rem; }
+
+  .tabs.vertical dd {
+    position: inherit;
+    float: none;
+    display: block;
+    top: auto; }
+
+
+/*TABS-HORIZONTAL*/
+
+.tabs.horizontal {
+  background: #333; }
+
+  .tabs.horizontal dd {
+    width: 7rem;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
+    margin-bottom: 0 !important;
+    float: left; }
+
+    .tabs.horizontal dd:nth-child(odd) > a {
+      display: block;
+      background: #666;
+      color: white;
+      padding: 0.3rem;
+      font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+      font-size: 1rem; }
+
+    .tabs.horizontal dd:nth-child(even) > a {
+      display: block;
+      background: #565656;
+      color: white;
+      padding: 0.3rem;
+      font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+      font-size: 1rem; }
+
+      .tabs.horizontal dd > a:hover {
+        background: #444; }
+
+    .tabs.horizontal dd.active a {
+      background: #f3f3f3;
+      color: #333 }
+
+  .tabs.radius dd:first-child a {
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px; }
+
+  .tabs.radius dd:last-child a {
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px; }
+
