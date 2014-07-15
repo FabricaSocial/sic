@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from modelos.funcionario import Departamento, Funcionario
-from modelos.pessoa import Pessoa
 import json
 
 
@@ -12,16 +12,9 @@ def listar_telefones(request):
     pass
 
 
-def obter_lista_departamentos():
-    return Departamento.objects.all()
-
-
 def obter_lista_departamentos_json():
-    return json.dumps(Departamento.objects.all())
-
-
-def obter_lista_departamento_por_nome(nome):
-    return Departamento.objects.filter(descricao=nome)
+    return HttpResponse(json.dumps(Departamento.objects.all()),
+                        content_type="application/json")
 
 
 def obter_lista_funcionarios_por_departamento():
@@ -40,9 +33,6 @@ def obter_lista_funcionarios_por_departamento():
     return lista_funcionarios_por_departamento
 
 
-def obter_funcionarios_json():
-    return json.dumps(Funcionario.objects.all())
-
-
-def obter_pessoa_por_cpf(cpf):
-    return Pessoa.objects.get(cpf=cpf)
+def obter_funcionarios_json(request):
+    return HttpResponse(json.dumps(Funcionario.objects.all()),
+                        content_type="application/json")
