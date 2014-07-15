@@ -88,7 +88,7 @@ class Capacitando(models.Model):
     hora_registro = models.TimeField(null=True)
     area_atuacao = models.ForeignKey(AreaAtuacao, null=True)
     especialidade = models.ForeignKey(Especialidade, null=True)
-    pessoa = models.ForeignKey(Pessoa, null=True)
+    pessoa = models.OneToOneField(Pessoa, null=True)
     necessidade_especial = models.ForeignKey(NecessidadeEspecial, null=True)
     categoria = models.ForeignKey(Categoria, null=True)
     turno = models.ForeignKey(Turno, null=True)

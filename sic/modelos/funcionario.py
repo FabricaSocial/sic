@@ -56,10 +56,10 @@ class Funcionario(models.Model):
 
     matricula = models.IntegerField(null=True)
     status = models.BooleanField(default=True)
-    pessoa = models.ForeignKey(Pessoa, null=True)
+    pessoa = models.OneToOneField(Pessoa, null=True)
     cargo = models.ForeignKey(Cargo, null=True)
     departamento = models.ForeignKey(Departamento, null=True)
-    usuario = models.ForeignKey(User, null=True)
+    usuario = models.OneToOneField(User, null=True)
     ramal = models.ForeignKey(Ramal, null=True)
 
 

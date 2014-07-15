@@ -71,8 +71,8 @@ class Departamento(models.Model):
     def natural_key(self):
         return dict(id=self.id, descricao=self.descricao,
                     abreviacao=self.abreviacao,
-                    coordenadoria_adjunta=self.coordenadoria_adjunta,
-                    ramal=self.ramal)
+                    coordenadoria_adjunta=self.coordenadoria_adjunta.natural_key(),
+                    ramal=self.ramal.natural_key())
 
     def obter_funcionarios(self):
         from modelos.funcionario import Funcionario
