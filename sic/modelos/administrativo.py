@@ -36,6 +36,10 @@ class CoordenadoriaAdjunta(models.Model):
     def __unicode__(self):
         return self.descricao
 
+    @classmethod
+    def obter_lista(cls):
+        return CoordenadoriaAdjunta.objects.all()
+
     descricao = models.CharField(max_length=255, null=True)
     abreviacao = models.CharField(max_length=255, null=True)
     coordenadoria = models.ForeignKey(Coordenadoria, null=True)
