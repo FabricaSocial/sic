@@ -48,18 +48,6 @@ class CoordenadoriaAdjunta(models.Model):
     departamentos = property(obter_departamentos)
 
 
-class Unidade(models.Model):
-
-    class Meta:
-        db_table = 'Unidade'
-
-    def __unicode__(self):
-        return self.descricao
-
-    descricao = models.CharField(max_length=255, null=True)
-    ramal = models.ForeignKey(Ramal, null=True)
-
-
 class Departamento(models.Model):
 
     class Meta:
@@ -68,8 +56,13 @@ class Departamento(models.Model):
     def __unicode__(self):
         return self.descricao
 
+    def obter_funcionarios(self):
+        from modelos.funcionario import Funcionario
+
+        return Funcionario.objects.filter(departamento_id=self.id)
+
     descricao = models.CharField(max_length=255, null=True)
     abreviacao = models.CharField(max_length=255, null=True)
     coordenadoria_adjunta = models.ForeignKey(CoordenadoriaAdjunta, null=True)
     ramal = models.ForeignKey(Ramal, null=True)
-    unidade = models.ForeignKey(Unidade, null=True)
+    funcionarios = property(obter_funcionarios)

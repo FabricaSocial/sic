@@ -3,7 +3,6 @@
 from django.db import models
 
 from modelos.pessoa import Pessoa
-from modelos.administrativo import Unidade
 
 
 class Categoria(models.Model):
@@ -92,7 +91,6 @@ class Capacitando(models.Model):
     pessoa = models.ForeignKey(Pessoa, null=True)
     necessidade_especial = models.ForeignKey(NecessidadeEspecial, null=True)
     categoria = models.ForeignKey(Categoria, null=True)
-    unidade = models.ForeignKey(Unidade, null=True)
     turno = models.ForeignKey(Turno, null=True)
 
 
