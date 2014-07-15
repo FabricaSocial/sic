@@ -2,8 +2,8 @@
 
 from django.db import models
 
-from modelos.pessoa import Cidade, Pessoa
-from modelos.funcionario import Ramal
+from modelos.pessoa import Pessoa
+from modelos.administrativo import Unidade
 
 
 class Categoria(models.Model):
@@ -48,18 +48,6 @@ class AreaAtuacao(models.Model):
         return self.descricao
 
     descricao = models.CharField(max_length=255, null=True)
-
-
-class Unidade(models.Model):
-
-    class Meta:
-        db_table = 'Unidade'
-
-    def __unicode__(self):
-        return self.cidade
-
-    cidade = models.ForeignKey(Cidade, null=True)
-    ramal = models.ForeignKey(Ramal, null=True)
 
 
 class Turno(models.Model):
