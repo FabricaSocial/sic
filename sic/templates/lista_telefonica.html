@@ -147,7 +147,8 @@
                     if(nomeFuncionario == ""){
                         $('#mensagemBusca').html("Para realizar um consulta por nome, utilize a pesquisa acima.");
                     } else {
-                        $('#mensagemBusca').html("Desculpe.. Não encontramos nenhum funcionário com o nome: " + nomeFuncionario);
+                        $('#mensagemBusca').html("Desculpe.. Não encontramos nenhum funcionário com o nome: <b>"
+                        + nomeFuncionario + "</b>.");
                     }
                 }
             })
