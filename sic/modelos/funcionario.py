@@ -4,7 +4,7 @@ from django.db import models
 
 from django.contrib.auth.models import User
 from modelos.pessoa import Pessoa
-from modelos.administrativo import Ramal, Departamento
+from modelos.administrativo import Departamento
 
 
 class TipoAudit(models.Model):
@@ -41,19 +41,6 @@ class Cargo(models.Model):
     lotacao = models.ForeignKey(Lotacao, null=True)
 
 
-class LotacaoRamal(models.Model):
-
-    class Meta:
-        db_table = 'LotacaoRamal'
-
-    def __unicode(self):
-        return self.ramal.ramal + ' - ' \
-            + self.lotacao.descricao
-
-    ramal = models.ForeignKey(Ramal, null=True)
-    lotacao = models.ForeignKey(Lotacao, null=True)
-
-
 class Funcionario(models.Model):
 
     class Meta:
@@ -79,7 +66,7 @@ class FuncionarioAudit(models.Model):
         return self.timestamp + ' - ' + self.funcionario.nome \
             + ' - ' + self.tipo_audit.descricao
 
-    timestamp = models.DateTimeField(null=True)
+    timestamp = models.DateTimeField(null=True, auto_now=True)
     funcionario = models.ForeignKey(Funcionario, null=True)
     usuario = models.ForeignKey(User, null=True)
     tipo_audit = models.ForeignKey(TipoAudit, null=True)
