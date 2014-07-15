@@ -42,6 +42,9 @@ class CoordenadoriaAdjunta(models.Model):
         return Departamento.objects.filter(
             coordenadoria_adjunta_id=self.id).order_by('descricao')
 
+    def as_dict():
+        return dict()
+
     descricao = models.CharField(max_length=255, null=True)
     abreviacao = models.CharField(max_length=255, null=True)
     coordenadoria = models.ForeignKey(Coordenadoria, null=True)

@@ -21,7 +21,8 @@ def alterar_dados(request):
 
             return HttpResponseRedirect('home.html')
     else:
-        formFuncionario = FuncionarioForm()
+        funcionario = Funcionario.objects.get(usuario_id=request.user.id)
+        formFuncionario = FuncionarioForm(instance=funcionario)
 
     return render(request, '', {
         'form': formFuncionario,
