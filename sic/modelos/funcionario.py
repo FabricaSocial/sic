@@ -52,7 +52,6 @@ class Ramal(models.Model):
         return self.ramal
 
     ramal = models.IntegerField(null=True)
-    unidade = models.ForeignKey(Unidade, null=True)
 
 
 class Departamento(models.Model):
@@ -67,6 +66,7 @@ class Departamento(models.Model):
     abreviacao = models.CharField(max_length=255, null=True)
     coordenadoria_adjunta = models.ForeignKey(CoordenadoriaAdjunta, null=True)
     ramal = models.ForeignKey(Ramal, null=True)
+    unidade = models.ForeignKey(Unidade, null=True)
 
 
 class Lotacao(models.Model):
@@ -97,6 +97,10 @@ class LotacaoRamal(models.Model):
     class Meta:
         db_table = 'LotacaoRamal'
 
+    def __unicode(self):
+        return self.ramal.ramal + ' - ' \
+            + self.lotacao.descricao
+
     ramal = models.ForeignKey(Ramal, null=True)
     lotacao = models.ForeignKey(Lotacao, null=True)
 
@@ -123,7 +127,8 @@ class FuncionarioAudit(models.Model):
         db_table = 'FuncionarioAudit'
 
     def __unicode__(self):
-        return funcionario.nome + ' - ' + tipo_audit.descricao
+        return self.timestamp + ' - ' + self.funcionario.nome \
+            + ' - ' + self.tipo_audit.descricao
 
     timestamp = models.DateTimeField(null=True)
     funcionario = models.ForeignKey(Funcionario, null=True)

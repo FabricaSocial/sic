@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# -*- encoding: utf-8 -*-
 
 from django.contrib.auth.decorators import login_required
 from modelos.funcionario import Departamento, Funcionario
@@ -17,9 +17,11 @@ def obter_lista_departamentos():
 
 
 def obter_lista_departamentos_json():
-    lista_departamentos = Departamento.objects.all()
-    lista_departamentos_json = json.dumps(lista_departamentos)
-    return lista_departamentos_json
+    return json.dumps(Departamento.objects.all())
+
+
+def obter_lista_departamento_por_nome(nome):
+    return Departamento.objects.filter(descricao=nome)
 
 
 def obter_lista_funcionarios_por_departamento():
@@ -32,16 +34,14 @@ def obter_lista_funcionarios_por_departamento():
         lista_funcionarios = {}
         for funcionario in \
                 Funcionario.objects.filter(departamento_id=departamento.id):
-            lista_funcionarios[funcionario.id] = funcionario.pessoa.nome
+            lista_funcionarios[funcionario.id] = funcionario
         lista_departamentos[departamento.id] = lista_funcionarios
 
     return lista_funcionarios_por_departamento
 
 
 def obter_funcionarios_json():
-    lista_funcionarios = Funcionario.objects.all()
-    lista_funcionarios_json = json.dumps(lista_funcionarios)
-    return lista_funcionarios_json
+    return json.dumps(Funcionario.objects.all())
 
 
 def obter_pessoa_por_cpf(cpf):

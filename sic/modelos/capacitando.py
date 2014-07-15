@@ -3,6 +3,7 @@
 from django.db import models
 
 from modelos.pessoa import Cidade, Pessoa
+from modelos.funcionario import Ramal
 
 
 class Categoria(models.Model):
@@ -58,6 +59,7 @@ class Unidade(models.Model):
         return self.cidade
 
     cidade = models.ForeignKey(Cidade, null=True)
+    ramal = models.ForeignKey(Ramal, null=True)
 
 
 class Turno(models.Model):
