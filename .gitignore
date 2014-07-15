@@ -59,4 +59,4 @@ docs/_build/
 database.py
 
 # Migrations
-modelos/migrations
+sic/modelos/migrations
