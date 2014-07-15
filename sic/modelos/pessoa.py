@@ -145,6 +145,7 @@ class Pessoa(models.Model):
 
     class Meta:
         db_table = 'Pessoa'
+        unique_together = ('nome')
 
     def __unicode__(self):
         return self.nome

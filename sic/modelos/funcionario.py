@@ -4,7 +4,7 @@ from django.db import models
 
 from django.contrib.auth.models import User
 from modelos.pessoa import Pessoa
-from modelos.administrativo import Departamento
+from modelos.administrativo import Departamento, Ramal
 
 
 class TipoAudit(models.Model):
@@ -55,6 +55,7 @@ class Funcionario(models.Model):
     cargo = models.ForeignKey(Cargo, null=True)
     departamento = models.ForeignKey(Departamento, null=True)
     usuario = models.ForeignKey(User, null=True)
+    ramal = models.ForeignKey(Ramal, null=True)
 
 
 class FuncionarioAudit(models.Model):
