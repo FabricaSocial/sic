@@ -4,7 +4,7 @@ from django.contrib import admin
 
 from modelos.capacitando import Capacitando
 from modelos.ponto import Ponto
-from modelos.pessoa import Pessoa, Endereco, Naturalidade
+from modelos.pessoa import Pessoa, Endereco, Naturalidade, Sexo
 from modelos.pessoa import CNH, CarteiraTrabalho, CategoriaCNH, Cidade
 from modelos.administrativo import Coordenadoria, CoordenadoriaAdjunta
 from modelos.administrativo import Departamento, Ramal, Unidade
@@ -16,6 +16,7 @@ admin.site.register(Pessoa)
 admin.site.register(Endereco)
 admin.site.register(Naturalidade)
 admin.site.register(CNH)
+admin.site.register(Sexo)
 admin.site.register(CarteiraTrabalho)
 admin.site.register(CategoriaCNH)
 admin.site.register(Cidade)

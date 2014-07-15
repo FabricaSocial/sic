@@ -130,6 +130,17 @@ class EstadoCivil(models.Model):
     descricao = models.CharField(max_length=255, null=True)
 
 
+class Sexo(models.Model):
+
+    class Meta:
+        db_table = 'Sexo'
+
+        def __unicode__(self):
+            return self.descricao
+
+    descricao = models.CharField(max_length=255, null=True)
+
+
 class Pessoa(models.Model):
 
     class Meta:
@@ -141,7 +152,7 @@ class Pessoa(models.Model):
     cpf = models.BigIntegerField(null=True)
     nome = models.CharField(max_length=255, null=True)
     data_nascimento = models.DateField(null=True)
-    sexo = models.BooleanField(default=False)
+    sexo = models.ForeignKey(Sexo, null=True)
     filhos = models.BooleanField(default=False)
     foto = models.CharField(max_length=255, null=True)
     etnia = models.ForeignKey(Etnia, null=True)
