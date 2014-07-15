@@ -19,6 +19,7 @@ def listar_telefones(request):
                               context_instance=RequestContext(request))
 
 
+@login_required(login_url='/login')
 def obter_lista_departamentos_json(request):
     departamentos_json = serializers.serialize(
         'json', Departamento.objects.all())
@@ -28,6 +29,7 @@ def obter_lista_departamentos_json(request):
         content_type="application/json")
 
 
+@login_required(login_url='/login')
 def obter_lista_funcionarios_json(request):
     funcionarios_json = serializers.serialize(
         'json', Funcionario.objects.all())
