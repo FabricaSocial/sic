@@ -33,57 +33,70 @@
 
 <div class="row">
     <dl class="tabs horizontal" data-tab>
-        <dd><a href="#panel1">COAD</a></dd>
-        <dd><a href="#panel2">COCAP</a></dd>
-        <dd><a href="#panel2">Outros</a></dd>
+        {% for coordenadoria in coordenadorias_adjuntas %}
+            {% if coordenadoria.id == 1 %}
+                <dd class="active"><a id="coord_adj{{coordenadoria.id}}"
+                    href="#coordenadoria{{coordenadoria.id}}">{{coordenadoria.abreviacao}}</a></dd>
+            {% else %}
+                <dd><a id="coord_adj{{coordenadoria.id}}"
+                    href="#coordenadoria{{coordenadoria.id}}">{{coordenadoria.abreviacao}}</a></dd>
+            {% endif %}
+        {% endfor %}
     </dl>
     <div class="tabs-content">
-        <div class="content" id="panel1">
-            <dl class="tabs vertical" data-tab>
-                <dd id="panel2" class="active"><a id="busca_tab" href="#pesquisa" align="center">Departamentos</a></dd>
-                @for(departamento <- departamentos){
-                <dd><a href="#departamento@departamento.getId()">
-                    <div class="row">
-                    <div class="large-10 columns" align="left">@departamento.getDescricao()</div>
-                    <div class="large-2 columns" align="center"><b>@departamento.getRamal()</b></div>
-                    </div>
-                    </a>
-                </dd>
-                }
-            </dl>
-            <div class="tabs-content vertical">
+        {% for coordenadoria in coordenadorias_adjuntas %}
+            {% if coordenadoria.id == 1 %}
+                <div class="content active" id="coordenadoria{{coordenadoria.id}}">
+            {% else %}
+                <div class="content" id="coordenadoria{{coordenadoria.id}}">
+            {% endif %}
+                <dl class="tabs vertical" data-tab>
+                    <dd id="panel2" class="active"><a id="busca_tab" href="#pesquisa" align="center">Departamentos</a></dd>
+                    {% for departamento in coordenadoria.departamentos %}
+                        <dd><a href="#departamento{{departamento.id}}">
+                            <div class="row">
+                                <div class="large-10 columns" align="left">{{departamento.descricao}}</div>
+                                <div class="large-2 columns" align="center"><b>{{departamento.ramal}}</b></div>
+                            </div>
+                            </a>
+                        </dd>
+                    {% endfor %}
+                </dl>
+                <div class="tabs-content vertical">
 
-                <div class="content active" id="pesquisa">
-                    <div class="row" align="right" id="divPesquisa">
-                        <p><h4 id="mensagemBusca">Para realizar um consulta por nome, utilize a pesquisa acima. </h4></p>
+                    <div class="content active" id="pesquisa">
+                        <div class="row" align="right" id="divPesquisa">
+                            <p><h4 id="mensagemBusca">Para realizar um consulta por nome, utilize a pesquisa acima. </h4></p>
+                        </div>
                     </div>
+
+                    {% for coordenadoria in coordenadorias_adjuntas %}
+                        {% for departamento in coordenadoria.departamentos %}
+                            <div class="content" id="departamento{{departamento.id}}">
+                                <div class="row" align="right">
+                                    <br>
+                                    <table>
+                                        <thead>
+                                            <th width="485">Nome</th>
+                                            <th width="50">Ramal</th>
+                                        </thead>
+
+                                        <tbody>
+                                        {% for funcionario in departamento.funcionarios %}
+                                            <tr>
+                                                <td>Matheus Souza Fernandes</td>
+                                                <td>1234</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                 </div>
-
-                @for(departamentos <- funcionarios){
-                <div class="content" id="departamento@(funcionarios.indexOf(departamentos)+1)">
-                    <div class="row" align="right">
-                        <br>
-                        <table>
-                            <thead>
-                                <th width="520">Nome</th>
-                                <th width="100">Ramal</th>
-                            </thead>
-
-                            <tbody>
-                            @for(funcionario <- departamentos){
-                                <tr>
-                                    <td>@funcionario.getPessoa()</td>
-                                    <td>@funcionario.getRamal()</td>
-                                </tr>
-                            }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                }
             </div>
-        </div>
-        <div class="content" id="panel2"></div>
+        {% endfor %}
     </div>
 </div>
 
@@ -93,6 +106,7 @@
 
     <script type="text/javascript">
         function selecionarTabBusca(){
+            $('#coord_adj1').click();
             $('#busca_tab').click();
         }
     </script>

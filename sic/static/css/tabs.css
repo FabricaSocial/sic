@@ -13,7 +13,7 @@
 /*TABS-VERTICAL*/
 
 .tabs.vertical {
-  width: 21rem; }
+  width: 27rem; }
 
   .tabs.vertical dd {
     width: 100%;
@@ -61,7 +61,7 @@
   background: #333; }
 
   .tabs.horizontal dd {
-    width: 7rem;
+    width: 9rem;
     position: relative;
     text-align: center;
     vertical-align: middle;

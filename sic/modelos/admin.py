@@ -11,8 +11,9 @@ from modelos.capacitando import Categoria, NecessidadeEspecial, \
 from modelos.funcionario import TipoAudit, Lotacao, Cargo, Funcionario, \
     FuncionarioAudit
 from modelos.administrativo import Coordenadoria, CoordenadoriaAdjunta, \
-    Ramal, Unidade, Departamento
+    Ramal, Departamento
 from modelos.ponto import Ponto, TipoPonto
+
 
 admin.site.register(CategoriaCNH)
 admin.site.register(Nacionalidade)
@@ -54,7 +55,6 @@ admin.site.register(FuncionarioAudit)
 admin.site.register(Coordenadoria)
 admin.site.register(CoordenadoriaAdjunta)
 admin.site.register(Ramal)
-admin.site.register(Unidade)
 admin.site.register(Departamento)
 
 admin.site.register(Ponto)
