@@ -49,6 +49,11 @@ class Funcionario(models.Model):
     def __unicode__(self):
         return self.pessoa.nome
 
+    @classmethod
+    def busca_dinamica_por_nome(cls, nome):
+        return Funcionario.objects.filter(
+            pessoa__nome__contains=nome, status=True)
+
     matricula = models.IntegerField(null=True)
     status = models.BooleanField(default=True)
     pessoa = models.ForeignKey(Pessoa, null=True)

@@ -3,7 +3,7 @@
 from django.template import RequestContext
 from django.core import serializers
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response
 from modelos.administrativo import CoordenadoriaAdjunta, Departamento
 from modelos.funcionario import Funcionario
@@ -30,11 +30,17 @@ def obter_lista_departamentos_json(request):
 
 
 @login_required(login_url='/login')
-def obter_lista_funcionarios_json(request):
-    funcionarios_json = serializers.serialize(
-        'json', Funcionario.objects.all(), use_natural_keys=True)
-    funcionarios_list = json.loads(funcionarios_json)
-    return HttpResponse(
-        json.dumps(
-            {'funcionarios': funcionarios_list}),
-        content_type="application/json")
+def obter_lista_funcionarios_json(request, nome):
+    funcionarios = Funcionario.busca_dinamica_por_nome(nome)
+
+    if funcionarios.count() > 0 and len(nome):
+        funcionarios_json = serializers.serialize(
+            'json', funcionarios, use_natural_keys=True)
+
+        funcionarios_list = json.loads(funcionarios_json)
+        json_funcionarios = json.dumps({'funcionarios': funcionarios_list}),
+
+        return HttpResponse(json_funcionarios, content_type="application/json")
+
+    else:
+        return HttpResponseBadRequest()

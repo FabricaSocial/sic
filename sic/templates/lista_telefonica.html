@@ -65,8 +65,8 @@
                 <div class="tabs-content vertical">
 
                     <div class="content active" id="pesquisa">
-                        <div class="row" align="right" id="divPesquisa">
-                            <p><h4 id="mensagemBusca">Para realizar um consulta por nome, utilize a pesquisa acima. </h4></p>
+                        <div class="row" align="center" id="divPesquisa">
+                            <p><h5 id="mensagemBusca">Para realizar um consulta por nome, utilize a pesquisa acima. </h5></p>
                         </div>
                     </div>
 
@@ -84,8 +84,8 @@
                                         <tbody>
                                         {% for funcionario in departamento.funcionarios %}
                                             <tr>
-                                                <td>Matheus Souza Fernandes</td>
-                                                <td>1234</td>
+                                                <td>{{funcionario.pessoa.nome}}</td>
+                                                <td>{{funcionario.ramal}}</td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>
@@ -117,32 +117,32 @@
 
             $.ajax({
                 type: "GET",
-                url: "/listarFuncionarios/" + nomeFuncionario,
+                url: "/telefones/funcionarios/" + nomeFuncionario,
                 dataType: "json",
                 success: function(lista){
-                    var html =   '<br>'+
+                    var html =   '<div align="right"><br>'+
                                         '<table>' +
                                             '<thead>' +
-                                                '<th width="120">Departamento</th>' +
-                                                '<th width="400">Nome</th>' +
-                                                '<th width="100">Ramal</th>' +
+                                                '<th width="133">Departamento</th>' +
+                                                '<th width="350">Nome</th>' +
+                                                '<th width="50">Ramal</th>' +
                                             '</thead>' +
                                             '<tbody>';
 
                     $.each(lista.funcionarios, function(i, funcionario){
                         html = html + '<tr>' +
-                                                    '<td>' + funcionario.departamento.abreviacao + '</td>' +
-                                                    '<td>' + funcionario.pessoa.nome + '</td>' +
-                                                    '<td>' + funcionario.ramal.ramal + '</td>' +
+                                                    '<td>' + funcionario.fields['departamento'].abreviacao + '</td>' +
+                                                    '<td>' + funcionario.fields['pessoa'].nome + '</td>' +
+                                                    '<td>' + funcionario.fields['ramal'].ramal + '</td>' +
                                                 '</tr>';
                     })
 
-                    html = html + '</tbody></table>';
+                    html = html + '</tbody></table></div>';
 
                     $('#divPesquisa').html(html);
                 },
                 error: function(){
-                    $('#divPesquisa').html('<p><h4 id="mensagemBusca">Para realizar um consulta por nome, utilize a pesquisa acima. </h4></p>');
+                    $('#divPesquisa').html('<p><h5 id="mensagemBusca">Para realizar um consulta por nome, utilize a pesquisa acima. </h5></p>');
 
                     if(nomeFuncionario == ""){
                         $('#mensagemBusca').html("Para realizar um consulta por nome, utilize a pesquisa acima.");
