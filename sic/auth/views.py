@@ -77,7 +77,6 @@ def sair(request):
 def alterar_dados(request):
     usuario = request.user
     if request.method == 'POST':
-
         form = request.POST
         foto = request.FILES
 
@@ -148,7 +147,8 @@ def preenche_form(form, foto, usuario):
     email = EmailForm(form, instance=email_antigo[0])
     salvar_formulario(email)
 
-    registro_geral_antigo = RegistroGeral.objects.get_or_create(pessoa_id=pessoa_antiga.id)
+    registro_geral_antigo = RegistroGeral.objects.get_or_create(
+        pessoa_id=pessoa_antiga.id)
     registro_geral_antigo[0].save()
     registro_geral = RegistroGeralForm(form, instance=registro_geral_antigo[0])
     salvar_formulario(registro_geral)

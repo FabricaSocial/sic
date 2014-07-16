@@ -3,20 +3,6 @@
 from django.db import models
 
 
-class Ramal(models.Model):
-
-    class Meta:
-        db_table = 'Ramal'
-
-    def natural_key(self):
-        return dict(id=self.id, ramal=self.ramal)
-
-    def __unicode__(self):
-        return "%s" % (self.ramal)
-
-    ramal = models.IntegerField(null=True)
-
-
 class Coordenadoria(models.Model):
 
     class Meta:
@@ -72,9 +58,8 @@ class Departamento(models.Model):
         return dict(
             id=self.id, descricao=self.descricao,
             abreviacao=self.abreviacao,
-            coordenadoria_adjunta=self.coordenadoria_adjunta.natural_key(
-            ),
-            ramal=self.ramal.natural_key())
+            coordenadoria_adjunta=self.coordenadoria_adjunta.natural_key(),
+            ramal=self.ramal_dpto)
 
     def obter_funcionarios(self):
         from modelos.funcionario import Funcionario
@@ -84,5 +69,20 @@ class Departamento(models.Model):
     descricao = models.CharField(max_length=255, null=True)
     abreviacao = models.CharField(max_length=255, null=True)
     coordenadoria_adjunta = models.ForeignKey(CoordenadoriaAdjunta, null=True)
-    ramal = models.ForeignKey(Ramal, null=True)
+    ramal_dpto = models.IntegerField(max_length=10)
     funcionarios = property(obter_funcionarios)
+
+
+class Ramal(models.Model):
+
+    class Meta:
+        db_table = 'Ramal'
+
+    def natural_key(self):
+        return dict(id=self.id, ramal=self.ramal)
+
+    def __unicode__(self):
+        return "%s" % (self.ramal)
+
+    ramal = models.IntegerField(null=True)
+    departamento = models.ForeignKey(Departamento, null=True)
