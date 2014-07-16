@@ -3,12 +3,16 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
-from auth.forms import FuncionarioForm
+from auth.forms import FuncionarioForm, PessoaForm, \
+    NaturalidadeForm, EnderecoForm, RegistroGeralForm, EmailForm
+
 from modelos.funcionario import Funcionario
+from modelos.pessoa import Endereco, RegistroGeral, Email, Naturalidade
 
 # Erros de Login
 USUARIO_INATIVO = 1
@@ -72,23 +76,62 @@ def sair(request):
 @login_required(login_url='/login')
 def alterar_dados(request):
     if request.method == 'POST':
-        novoFuncionario = FuncionarioForm(request.POST)
+        novo_funcionario = FuncionarioForm(request.POST)
+        nova_pessoa = PessoaForm(request.POST)
 
-        if novoFuncionario.is_valid():
-            antigoFuncionario = Funcionario.objects.get(
-                matricula=novoFuncionario.matricula)
+        if novo_funcionario.is_valid():
+            antigo_funcionario = Funcionario.objects.get(
+                matricula=novo_funcionario.matricula)
 
-            novoFuncionario = FuncionarioForm(
-                request.POST, instance=antigoFuncionario)
+            novo_funcionario = FuncionarioForm(
+                request.POST, instance=antigo_funcionario)
 
-            novoFuncionario.save()
+            antiga_pessoa = antigo_funcionario.pessoa
+
+            nova_pessoa = PessoaForm(request.POST, instance=antiga_pessoa)
+            nova_pessoa.save()
+
+            novo_funcionario.save()
 
             return HttpResponseRedirect('home.html')
     else:
         usuario = request.user
-        funcionario = Funcionario.objects.get(usuario_id=usuario.id)
-        formFuncionario = FuncionarioForm(instance=funcionario)
+        forms = obter_forms(usuario)
 
     return render(request, 'alterar_dados.html', {
-        'form': formFuncionario,
+        'form_funcionario': forms['funcionario'],
+        'form_pessoa': forms['pessoa'],
+        'form_endereco': forms['endereco'],
+        'form_email': forms['email'],
+        'form_naturalidade': forms['naturalidade'],
+        'form_registro_geral': forms['registro_geral'],
     })
+
+
+def obter_forms(usuario):
+    forms = {}
+    funcionario = Funcionario.objects.get(usuario_id=usuario.id)
+    forms['funcionario'] = FuncionarioForm(instance=funcionario)
+
+    pessoa = funcionario.pessoa
+    forms['pessoa'] = PessoaForm(instance=pessoa)
+
+    endereco = Endereco.objects.get(pessoa=pessoa.id)
+    forms['endereco'] = EnderecoForm(instance=endereco)
+
+    naturalidade = Naturalidade.objects.get(id=pessoa.naturalidade.id)
+    forms['naturalidade'] = NaturalidadeForm(instance=naturalidade)
+
+    try:
+        email = Email.objects.get(pessoa=pessoa)
+        forms['email'] = EmailForm(instance=email)
+    except ObjectDoesNotExist:
+        forms['email'] = EmailForm()
+
+    try:
+        registro_geral = RegistroGeral.objects.get(pessoa=pessoa)
+        forms['registro_geral'] = RegistroGeralForm(instance=registro_geral)
+    except ObjectDoesNotExist:
+        forms['registro_geral'] = RegistroGeralForm()
+
+    return forms

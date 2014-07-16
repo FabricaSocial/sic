@@ -1,4 +1,6 @@
 from django.db import models
+from sic.settings import BASE_DIR
+from os import path
 
 
 class CategoriaCNH(models.Model):
@@ -202,7 +204,7 @@ class Pessoa(models.Model):
     data_nascimento = models.DateField(null=True)
     sexo = models.ForeignKey(Sexo, null=True)
     filhos = models.BooleanField(default=False)
-    foto = models.CharField(max_length=255, null=True)
+    foto = models.ImageField(upload_to=path.join(BASE_DIR, 'statis/img/fotos'))
     etnia = models.ForeignKey(Etnia, null=True)
     tipo_identidade = models.ForeignKey(TipoIdentidade, null=True)
     estado_civil = models.ForeignKey(EstadoCivil, null=True)
