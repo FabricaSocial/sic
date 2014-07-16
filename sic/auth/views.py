@@ -142,19 +142,15 @@ def preenche_form(form, foto, usuario):
     naturalidade_antiga = pessoa_antiga.naturalidade
     naturalidade = NaturalidadeForm(form, instance=naturalidade_antiga)
     salvar_formulario(naturalidade)
-    
-    try:
-        email_antigo = Email.objects.get(pessoa_id=pessoa_antiga.id)
-        email = EmailForm(form, instance=email_antigo)
-    except ObjectDoesNotExist:
-        email = EmailForm(form)
+
+    email_antigo = Email.objects.get_or_create(pessoa_id=pessoa_antiga.id)
+    email_antigo[0].save()
+    email = EmailForm(form, instance=email_antigo[0])
     salvar_formulario(email)
 
-    try:
-        registro_geral_antigo = RegistroGeral.objects.get(pessoa_id=pessoa_antiga.id)
-        registro_geral = RegistroGeralForm(form, instance=registro_geral_antigo)
-    except ObjectDoesNotExist:
-        registro_geral = RegistroGeralForm(form)
+    registro_geral_antigo = RegistroGeral.objects.get_or_create(pessoa_id=pessoa_antiga.id)
+    registro_geral_antigo[0].save()
+    registro_geral = RegistroGeralForm(form, instance=registro_geral_antigo[0])
     salvar_formulario(registro_geral)
 
 

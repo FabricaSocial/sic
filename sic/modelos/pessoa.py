@@ -236,7 +236,7 @@ class RegistroGeral(models.Model):
         db_table = 'RegistroGeral'
 
     def __unicode__(self):
-        return self.rg
+        return str(self.rg)
 
     rg = models.BigIntegerField(null=True)
     orgao_expedidor = models.CharField(max_length=255, null=True)
@@ -256,7 +256,6 @@ class ServicoMilitar(models.Model):
     ano = models.IntegerField(null=True)
     pessoa = models.ForeignKey(Pessoa, null=True)
     uf = models.ForeignKey(UF, null=True)
-
 
 class CarteiraTrabalho(models.Model):
 
@@ -318,7 +317,7 @@ class Email(models.Model):
         db_table = 'Email'
 
     def __unicode__(self):
-        return self.endereco
+        return str(self.endereco)
 
     endereco = models.CharField(max_length=255, null=True)
     pessoa = models.ForeignKey(Pessoa, null=True)
