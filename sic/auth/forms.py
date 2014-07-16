@@ -42,9 +42,16 @@ class RegistroGeralForm(forms.ModelForm):
         model = RegistroGeral
         fields = ['rg', 'orgao_expedidor', 'data_expedicao', 'uf']
 
+    rg = forms.IntegerField(min_value=1, label='RG')
+    orgao_expedidor = forms.CharField(label='Órgão Expedidor')
+    data_expedicao = forms.DateField(
+        input_formats=['%m/%d/%Y'], label='Data de Expedição')
+
 
 class EmailForm(forms.ModelForm):
 
     class Meta:
         model = Email
         fields = ['endereco']
+
+    email = forms.EmailField(label='Email')
