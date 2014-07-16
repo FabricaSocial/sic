@@ -199,12 +199,13 @@ class Pessoa(models.Model):
     def __unicode__(self):
         return self.nome
 
-    cpf = models.BigIntegerField(null=True)
+    cpf = models.CharField(max_length=255, null=True)
     nome = models.CharField(max_length=255, null=True)
     data_nascimento = models.DateField(null=True)
     sexo = models.ForeignKey(Sexo, null=True)
     filhos = models.BooleanField(default=False)
-    foto = models.ImageField(upload_to=path.join(BASE_DIR, 'statis/img/fotos'))
+    foto = models.ImageField(upload_to=path.join(BASE_DIR, 'statis/img/fotos'),
+    							null=True)
     etnia = models.ForeignKey(Etnia, null=True)
     tipo_identidade = models.ForeignKey(TipoIdentidade, null=True)
     estado_civil = models.ForeignKey(EstadoCivil, null=True)
@@ -281,7 +282,6 @@ class Filiacao(models.Model):
     cpf = models.BigIntegerField(null=True)
     nome = models.CharField(max_length=255, null=True)
     pessoa = models.ForeignKey(Pessoa, null=True)
-
 
 class CNH(models.Model):
 
