@@ -75,28 +75,16 @@ def sair(request):
 
 @login_required(login_url='/login')
 def alterar_dados(request):
+    usuario = request.user
     if request.method == 'POST':
-        novo_funcionario = FuncionarioForm(request.POST)
-        nova_pessoa = PessoaForm(request.POST)
 
-        if novo_funcionario.is_valid():
-            antigo_funcionario = Funcionario.objects.get(
-                matricula=novo_funcionario.matricula)
+        form = request.POST
+        foto = request.FILES
 
-            novo_funcionario = FuncionarioForm(
-                request.POST, instance=antigo_funcionario)
+        preenche_form(form, foto, usuario)
+        return HttpResponseRedirect('/home')
 
-            antiga_pessoa = antigo_funcionario.pessoa
-
-            nova_pessoa = PessoaForm(request.POST, instance=antiga_pessoa)
-            nova_pessoa.save()
-
-            novo_funcionario.save()
-
-            return HttpResponseRedirect('home.html')
-    else:
-        usuario = request.user
-        forms = obter_forms(usuario)
+    forms = obter_forms(usuario)
 
     return render(request, 'alterar_dados.html', {
         'form_funcionario': forms['funcionario'],
@@ -135,3 +123,41 @@ def obter_forms(usuario):
         forms['registro_geral'] = RegistroGeralForm()
 
     return forms
+
+
+def preenche_form(form, foto, usuario):
+
+    funcionario_antigo = Funcionario.objects.get(usuario_id=usuario.id)
+    funcionario = FuncionarioForm(form, instance=funcionario_antigo)
+    salvar_formulario(funcionario)
+
+    pessoa_antiga = funcionario_antigo.pessoa
+    pessoa = PessoaForm(form, foto, instance=pessoa_antiga)
+    salvar_formulario(pessoa)
+
+    endereco_antigo = pessoa_antiga.endereco
+    endereco = EnderecoForm(form, instance=endereco_antigo)
+    salvar_formulario(endereco)
+
+    naturalidade_antiga = pessoa_antiga.naturalidade
+    naturalidade = NaturalidadeForm(form, instance=naturalidade_antiga)
+    salvar_formulario(naturalidade)
+    
+    try:
+        email_antigo = Email.objects.get(pessoa_id=pessoa_antiga.id)
+        email = EmailForm(form, instance=email_antigo)
+    except ObjectDoesNotExist:
+        email = EmailForm(form)
+    salvar_formulario(email)
+
+    try:
+        registro_geral_antigo = RegistroGeral.objects.get(pessoa_id=pessoa_antiga.id)
+        registro_geral = RegistroGeralForm(form, instance=registro_geral_antigo)
+    except ObjectDoesNotExist:
+        registro_geral = RegistroGeralForm(form)
+    salvar_formulario(registro_geral)
+
+
+def salvar_formulario(formulario):
+    if formulario.is_valid():
+        formulario.save()

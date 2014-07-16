@@ -18,7 +18,7 @@
                     <p></p>
                 </div>
                 <div class="large-8 small-10 columns">
-                    <form action="/login/alterar/dados/" method="POST">
+                    <form action="/login/alterar/dados/" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <p align="center">Informações Básicas</p>
 
