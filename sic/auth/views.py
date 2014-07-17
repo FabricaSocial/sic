@@ -72,17 +72,18 @@ def sair(request):
 @login_required(login_url='/login')
 def alterar_dados(request):
     usuario = request.user
+    alterado = False
     if request.method == 'POST':
         form = request.POST
 
-        preenche_form(form, usuario)
-        return HttpResponseRedirect('/home')
+        alterado = preenche_form(form, usuario)
 
     forms = obter_forms(usuario)
 
     return render(request, 'alterar_dados.html', {
         'form_funcionario': forms['funcionario'],
         'form_pessoa': forms['pessoa'],
+        'sucesso': alterado,
     })
 
 
@@ -101,13 +102,17 @@ def preenche_form(form, usuario):
 
     funcionario_antigo = Funcionario.objects.get(usuario_id=usuario.id)
     funcionario = FuncionarioForm(form, instance=funcionario_antigo)
-    salvar_formulario(funcionario)
 
     pessoa_antiga = funcionario_antigo.pessoa
     pessoa = PessoaForm(form, instance=pessoa_antiga)
-    salvar_formulario(pessoa)
+
+    sucesso = salvar_formulario(funcionario) and salvar_formulario(pessoa)
+
+    return sucesso
 
 
 def salvar_formulario(formulario):
     if formulario.is_valid():
         formulario.save()
+        return True
+    return False

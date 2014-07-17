@@ -20,79 +20,13 @@
                 <div class="large-8 small-10 columns">
                     <form action="/login/alterar/dados/" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
-                        <p align="center">Informações Básicas</p>
 
                         <div class="row">
-                            <div class="large-4 columns">{{form_pessoa.cpf.label_tag}}{{form_pessoa.cpf}}</div>
-                            <div class="large-8 columns">{{form_pessoa.nome.label_tag}}{{form_pessoa.nome}}</div>
+                            <div class="large-12 columns">{{form_pessoa.nome.label_tag}}{{form_pessoa.nome}}</div>
                         </div>
-
-                        <div class="row">
-                            <div class="large-4 columns">{{form_pessoa.data_nascimento.label_tag}}{{form_pessoa.data_nascimento}}</div>
-                            <div class="large-6 columns">{{form_pessoa.sexo.label_tag}}{{form_pessoa.sexo}}</div>
-                            <div class="large-2 columns">{{form_pessoa.filhos.label_tag}}{{form_pessoa.filhos}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="large-6 columns">{{form_pessoa.estado_civil.label_tag}}{{form_pessoa.estado_civil}}</div>
-                            <div class="large-6 columns">{{form_pessoa.etnia.label_tag}}{{form_pessoa.etnia}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="large-12 columns">{{form_email.email.label_tag}}{{form_email.endereco}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="large-12 columns">{{form_pessoa.foto.label_tag}}{{form_pessoa.foto}}</div>
-                        </div>
-
-                        <p><hr></p>
-                        <p align="center">Registro Geral</p>
-
-                        <div class="row">
-                            <div class="large-6 columns">{{form_registro_geral.rg.label_tag}}{{form_registro_geral.rg}}</div>
-                            <div class="large-6 columns">{{form_registro_geral.data_expedicao.label_tag}}{{form_registro_geral.data_expedicao}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="large-6 columns">{{form_registro_geral.orgao_expedidor.label_tag}}{{form_registro_geral.orgao_expedidor}}</div>
-                            <div class="large-6 columns">{{form_registro_geral.uf.label_tag}}{{form_registro_geral.uf}}</div>
-                        </div>
-
-                        <p><hr></p>
-
-                        <p align="center">Naturalidade</p>
-
-                        <div class="row">
-                            <div class="large-4 columns">{{form_naturalidade.pais}}</div>
-                            <div class="large-4 columns">{{form_naturalidade.uf}}</div>
-                            <div class="large-4 columns">{{form_naturalidade.cidade}}</div>
-                        </div>
-
-                        <p><hr></p>
-
-                        <p align="center">Endereço</p>
-
-                        <div class="row">
-                            <div class="large-4 columns">{{form_endereco.cep.label_tag}}{{form_endereco.cep}}</div>
-                            <div class="large-4 columns">{{form_endereco.cidade.label_tag}}{{form_endereco.cidade}}</div>
-                            <div class="large-4 columns">{{form_endereco.bairro.label_tag}}{{form_endereco.bairro}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="large-12 columns">{{form_endereco.endereco.label_tag}}{{form_endereco.endereco}}</div>
-                        </div>
-
-                        <p><hr></p>
-                        <p align="center">Dados Administrativos</p>
 
                         <div class="row">
                             <div class="large-6 columns">{{form_funcionario.departamento.label_tag}}{{form_funcionario.departamento}}</div>
-                            <div class="large-6 columns">{{form_funcionario.cargo.label_tag}}{{form_funcionario.cargo}}</div>
-                        </div>
-
-                        <div class="row">
-                            <div class="large-6 columns">{{form_funcionario.matricula.label_tag}}{{form_funcionario.matricula}}</div>
                             <div class="large-6 columns">{{form_funcionario.ramal.label_tag}}{{form_funcionario.ramal}}</div>
                         </div>
 
@@ -111,6 +45,7 @@
                         </div>
 
                     </form>
+
                     </div>
                 <div class="large-1 small-1 columns"><p></p></div>
             </div>
@@ -118,5 +53,15 @@
         <div class="large-2 small-1 columns"></div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block scripts_rodape %}
+
+    {% if sucesso == True %}
+        <script type="text/javascript">
+            $('#modal_sucesso').foundation('reveal', 'open');
+        </script>
+    {% endif %}
 
 {% endblock %}
