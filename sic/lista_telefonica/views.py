@@ -5,7 +5,7 @@ from django.core import serializers
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import render_to_response
-from modelos.administrativo import CoordenadoriaAdjunta, Departamento
+from modelos.administrativo import CoordenadoriaAdjunta, Departamento, Ramal
 from modelos.funcionario import Funcionario
 import json
 
@@ -27,6 +27,19 @@ def obter_lista_departamentos_json(request):
     return HttpResponse(
         json.dumps({'departamentos': departamentos_list}),
         content_type="application/json")
+
+
+@login_required(login_url='/login')
+def obter_ramais_por_departamento_json(request, departamento):
+    ramais = Ramal.objects.filter(departamento__id=departamento)
+
+    serialize_ramais = serializers.serialize(
+        'json', ramais, use_natural_keys=True)
+
+    lista_ramais = json.loads(serialize_ramais)
+    json_ramais = json.dumps({'ramais': lista_ramais}),
+
+    return HttpResponse(json_ramais, content_type='application/json')
 
 
 @login_required(login_url='/login')

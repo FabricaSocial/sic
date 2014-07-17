@@ -59,7 +59,7 @@ class Departamento(models.Model):
             id=self.id, descricao=self.descricao,
             abreviacao=self.abreviacao,
             coordenadoria_adjunta=self.coordenadoria_adjunta.natural_key(),
-            rama_dptol=self.ramal_dpto)
+            rama_dpto=self.ramal_dpto)
 
     def obter_funcionarios(self):
         from modelos.funcionario import Funcionario

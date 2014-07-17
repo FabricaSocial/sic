@@ -7,4 +7,6 @@ urlpatterns = patterns('lista_telefonica',
                            'views.obter_lista_departamentos_json'),
                        url(r'^funcionarios/(?P<nome>\w*)',
                            'views.obter_lista_funcionarios_json'),
+                       url(r'^ramais/(?P<departamento>\w*)',
+                           'views.obter_ramais_por_departamento_json'),
                        )
