@@ -85,7 +85,7 @@ class UF(models.Model):
         db_table = 'UF'
 
     def natural_key(self):
-        return dict(id=self.id, pais=self.pais.natural_key(),
+        return dict(id=self.id, pais=self.pais,
                     abreviacao=self.abreviacao, nome=self.nome)
 
     def __unicode__(self):
@@ -102,7 +102,7 @@ class Cidade(models.Model):
         db_table = 'Cidade'
 
     def natural_key(self):
-        return dict(id=self.id, uf=self.uf.natural_key(),
+        return dict(id=self.id, uf=self.uf,
                     nome=self.nome)
 
     def __unicode__(self):
@@ -119,9 +119,9 @@ class Naturalidade(models.Model):
 
     def natural_key(self):
         return dict(id=self.id,
-                    pais=self.pais.natural_key(),
-                    cidade=self.cidade.natural_key(),
-                    uf=self.uf.natural_key())
+                    pais=self.pais,
+                    cidade=self.cidade,
+                    uf=self.uf)
 
     def __unicode__(self):
         return self.cidade.nome
@@ -139,7 +139,7 @@ class Endereco(models.Model):
     def natural_key(self):
         return dict(id=self.id, cep=self.cep,
                     endereco=self.endereco, bairro=self.bairro,
-                    cidade=self.cidade.natural_key())
+                    cidade=self.cidade)
 
     def __unicode__(self):
         return self.endereco
@@ -184,15 +184,7 @@ class Pessoa(models.Model):
         db_table = 'Pessoa'
 
     def natural_key(self):
-        return dict(id=self.id, cpf=self.cpf, nome=self.nome,
-                    data_nascimento=self.data_nascimento,
-                    sexo=self.sexo.natural_key(), filhos=self.filhos,
-                    foto=self.foto, etnia=self.etnia.natural_key(),
-                    tipo_identidade=self.tipo_identidade.natural_key(),
-                    estado_civil=self.estado_civil.natural_key(),
-                    endereco=self.endereco.natural_key(),
-                    nacionalidade=self.nacionalidade.natural_key(),
-                    naturalidade=self.naturalidade.natural_key())
+        return dict(id=self.id, nome=self.nome)
 
     def __unicode__(self):
         return self.nome
