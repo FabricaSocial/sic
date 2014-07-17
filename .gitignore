@@ -60,3 +60,5 @@ database.py
 
 # Migrations
 sic/modelos/migrations
+sic/csvs
+
