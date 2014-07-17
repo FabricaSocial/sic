@@ -56,5 +56,4 @@ def main_pessoas():
 
 if __name__ == '__main__':
     print 'Cadastro de Pessoa, Usuario e Funcionario'
-    # main_pessoas()
-    print gera_nome_de_usuario("Nome com Ãcento")
+    main_pessoas()
