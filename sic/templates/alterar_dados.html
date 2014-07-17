@@ -56,6 +56,31 @@
 
 {% endblock %}
 
+{% block scripts_ajax %}
+
+    <script type="text/javascript">
+        $('#id_departamento').change(function(){
+            var departamento = $('#id_departamento')
+
+            $.ajax({
+                type: 'GET',
+                url: '/telefones/ramais/' + departamento.val(),
+                dataType: 'json',
+                success: function(json){
+                    var options = '<option value="" selected="selected">---------</option>'
+
+                    $.each(json.ramais, function(i, ramal){
+                        options = options + '<option value="'+ ramal.pk + '">' + ramal.fields['ramal'] + '</option>';
+                    })
+
+                    $('#id_ramal').html(options);
+                }
+            })
+        })
+    </script>
+
+{% endblock %}
+
 {% block scripts_rodape %}
 
     {% if sucesso == True %}
