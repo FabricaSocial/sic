@@ -21,6 +21,7 @@ class PessoaForm(forms.ModelForm):
 
         foto = forms.ImageField(required=False)
 
+
 class EnderecoForm(forms.ModelForm):
 
     class Meta:
@@ -52,4 +53,4 @@ class EmailForm(forms.ModelForm):
         model = Email
         fields = ['id', 'endereco']
 
-    email = forms.EmailField(label='Email', required=False)
+    endereco = forms.EmailField(label='Email', required=False)
