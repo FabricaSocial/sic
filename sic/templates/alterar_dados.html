@@ -57,9 +57,9 @@
 {% endblock %}
 
 {% block scripts_ajax %}
-
     <script type="text/javascript">
-        $('#id_departamento').change(function(){
+
+        function preenche_ramais(){
             var departamento = $('#id_departamento')
 
             $.ajax({
@@ -76,12 +76,21 @@
                     $('#id_ramal').html(options);
                 }
             })
+        }
+
+        $('#id_departamento').change(function(){
+            preenche_ramais();
+        })
+
+        $(document).ready(function(){
+            preenche_ramais();
         })
     </script>
 
 {% endblock %}
 
 {% block scripts_rodape %}
+
 
     {% if sucesso == True %}
         <script type="text/javascript">
