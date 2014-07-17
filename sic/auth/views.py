@@ -32,14 +32,18 @@ def entrar(request):
     login_usuario = authenticate(username=usuario, password=senha)
     erro_login = None
 
-    if login_usuario is not None:
-        if login_usuario.is_active:
-            login(request, login_usuario)
-            return HttpResponseRedirect('/home/')
+    if login_usuario.last_login != login_usuario.date_joined:
+        if login_usuario is not None:
+            if login_usuario.is_active:
+                login(request, login_usuario)
+                return HttpResponseRedirect('/home/')
+            else:
+                erro_login = USUARIO_INATIVO
         else:
-            erro_login = USUARIO_INATIVO
+            erro_login = LOGIN_INVALIDO
     else:
-        erro_login = LOGIN_INVALIDO
+        login(request, login_usuario)
+        return HttpResponseRedirect('/primeiro-login/')
 
     return render_to_response(
         'login.html',
@@ -85,6 +89,20 @@ def alterar_dados(request):
         'form_pessoa': forms['pessoa'],
         'sucesso': alterado,
     })
+
+
+@login_required(login_url='/login/')
+def primeiro_login(request):
+    usuario = request.user
+
+    forms = obter_forms(usuario)
+    return render_to_response(
+        'alterar_dados.html', {
+            'primeiro_login': True,
+            'form_funcionario': forms['funcionario'],
+            'form_pessoa': forms['pessoa'], },
+        context_instance=RequestContext(request)
+    )
 
 
 def obter_forms(usuario):

@@ -4,6 +4,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
                        url(r'^home/$', 'app.views.index'),
+                       url(r'^primeiro-login/$', 'auth.views.primeiro_login'),
                        url(r'^painel/$', 'app.views.painel_controle'),
 
                        url(r'^$', 'auth.views.inicio'),

@@ -3,6 +3,7 @@
 {% block titulo %}Alterar Dados | SIC {% endblock %}
 
 {% block conteudo %}
+
 <div class="row">
     <div class="row" align="center">
         <h2>Alterar Dados</h2><hr>
@@ -54,7 +55,20 @@
     </div>
 </div>
 
+<ol class="joyride-list" data-joyride>
+  <li data-id="dropdown_usuario" data-text="OK" data-options="tip_location: top;nub_position:top;">
+    <p>Hello and welcome to the <br>Joyride documentation page.</p>
+  </li>
+</ol>
 {% endblock %}
+
+{% if primeiro_login == True %}
+{% block joyride %}
+
+
+
+{% endblock %}
+{% endif %}
 
 {% block scripts_ajax %}
     <script type="text/javascript">
@@ -84,13 +98,16 @@
 
         $(document).ready(function(){
             preenche_ramais();
+            $('#dropdown_usuario').mouseenter();
         })
     </script>
 
 {% endblock %}
 
 {% block scripts_rodape %}
-
+    <script type="text/javascript">
+        $(document).foundation('joyride', 'start');
+    </script>
 
     {% if sucesso == True %}
         <script type="text/javascript">
