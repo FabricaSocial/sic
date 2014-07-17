@@ -3,16 +3,12 @@
 from django.template import RequestContext
 from django.shortcuts import render_to_response, render
 from django.http import HttpResponseRedirect
-from django.core.exceptions import ObjectDoesNotExist
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
-from auth.forms import FuncionarioForm, PessoaForm, \
-    NaturalidadeForm, EnderecoForm, RegistroGeralForm, EmailForm
-
+from auth.forms import FuncionarioForm, PessoaForm
 from modelos.funcionario import Funcionario
-from modelos.pessoa import Endereco, RegistroGeral, Email, Naturalidade
 
 # Erros de Login
 USUARIO_INATIVO = 1
@@ -78,9 +74,8 @@ def alterar_dados(request):
     usuario = request.user
     if request.method == 'POST':
         form = request.POST
-        foto = request.FILES
 
-        preenche_form(form, foto, usuario)
+        preenche_form(form, usuario)
         return HttpResponseRedirect('/home')
 
     forms = obter_forms(usuario)
@@ -88,10 +83,6 @@ def alterar_dados(request):
     return render(request, 'alterar_dados.html', {
         'form_funcionario': forms['funcionario'],
         'form_pessoa': forms['pessoa'],
-        'form_endereco': forms['endereco'],
-        'form_email': forms['email'],
-        'form_naturalidade': forms['naturalidade'],
-        'form_registro_geral': forms['registro_geral'],
     })
 
 
@@ -103,60 +94,18 @@ def obter_forms(usuario):
     pessoa = funcionario.pessoa
     forms['pessoa'] = PessoaForm(instance=pessoa)
 
-    endereco = Endereco.objects.get(pessoa=pessoa.id)
-    forms['endereco'] = EnderecoForm(instance=endereco)
-
-    naturalidade = Naturalidade.objects.get(id=pessoa.naturalidade.id)
-    forms['naturalidade'] = NaturalidadeForm(instance=naturalidade)
-
-    try:
-        email = Email.objects.get(pessoa=pessoa)
-        forms['email'] = EmailForm(instance=email)
-    except ObjectDoesNotExist:
-        forms['email'] = EmailForm()
-
-    try:
-        registro_geral = RegistroGeral.objects.get(pessoa=pessoa)
-        forms['registro_geral'] = RegistroGeralForm(instance=registro_geral)
-    except ObjectDoesNotExist:
-        forms['registro_geral'] = RegistroGeralForm()
-
     return forms
 
 
-def preenche_form(form, foto, usuario):
+def preenche_form(form, usuario):
 
     funcionario_antigo = Funcionario.objects.get(usuario_id=usuario.id)
     funcionario = FuncionarioForm(form, instance=funcionario_antigo)
     salvar_formulario(funcionario)
 
     pessoa_antiga = funcionario_antigo.pessoa
-    pessoa = PessoaForm(form, foto, instance=pessoa_antiga)
+    pessoa = PessoaForm(form, instance=pessoa_antiga)
     salvar_formulario(pessoa)
-
-    endereco_antigo = pessoa_antiga.endereco
-    endereco = EnderecoForm(form, instance=endereco_antigo)
-    salvar_formulario(endereco)
-
-    naturalidade_antiga = pessoa_antiga.naturalidade
-    naturalidade = NaturalidadeForm(form, instance=naturalidade_antiga)
-    salvar_formulario(naturalidade)
-
-    try:
-        email_antigo = Email.objects.get(pessoa_id=pessoa_antiga.id)
-        email = EmailForm(form, instance=email_antigo)
-    except ObjectDoesNotExist:
-        email = EmailForm(form)
-    salvar_formulario(email)
-
-    try:
-        registro_geral_antigo = RegistroGeral.objects.get(
-            pessoa_id=pessoa_antiga.id)
-        registro_geral = RegistroGeralForm(
-            form, instance=registro_geral_antigo[0])
-    except ObjectDoesNotExist:
-        registro_geral = RegistroGeralForm(form)
-    salvar_formulario(registro_geral)
 
 
 def salvar_formulario(formulario):
