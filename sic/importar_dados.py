@@ -27,12 +27,12 @@ def cria_usuario(pessoa):
     cria_funcionario(user, pessoa)
 
 
-def gera_nome_de_usuario(nome):
+def gera_nome_de_usuario(nome, codif='utf-8'):
     nome_split = nome.split(' ')
     nome = nome_split[0] + '.' + nome_split[-1]
-    nome = nome.lower()
+    nome = normalize('NFKD', nome.decode(codif)).encode('ASCII', 'ignore')
 
-    normalize('NFKD', nome.decode('utf-8').encode('ASCII', 'ignore'))
+    nome = nome.lower()
     return nome
 
 
