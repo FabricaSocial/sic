@@ -12,21 +12,33 @@ from modelos.administrativo import CoordenadoriaAdjunta, \
     Coordenadoria, Departamento, Ramal
 
 
-def cria_funcionario(usuario, pessoa):
-    funcionario = Funcionario()
-    funcionario.pessoa = pessoa
-    funcionario.usuario = usuario
+def cria_funcionario(usuario, pessoa, dados):
+    if Funcionario.objects.filter(pessoa=pessoa).count() == 0:
+        funcionario = Funcionario()
+        funcionario.pessoa = pessoa
+        funcionario.usuario = usuario
 
-    funcionario.save()
+        funcionario.departamento = obter_departamento(dados[1])
+        ramal = obter_ramal(dados[2])
+
+        if ramal is not None:
+            funcionario.ramal = ramal
+
+        funcionario.save()
+    else:
+        print 'Funcionário ' + pessoa.nome + ' já cadastrado.'
 
 
-def cria_usuario(pessoa):
+def cria_usuario(pessoa, dados):
     nome = gera_nome_de_usuario(pessoa.nome)
 
-    user = User.objects.create_user(nome, password='12345678')
-    user.save()
+    if User.objects.filter(username=nome).count() == 0:
+        user = User.objects.create_user(nome, password='12345678')
+        user.save()
+    else:
+        print 'Usuário ' + nome + ' já cadastrado.'
 
-    cria_funcionario(user, pessoa)
+    cria_funcionario(user, pessoa, dados)
 
 
 def gera_nome_de_usuario(nome, codif='utf-8'):
@@ -38,12 +50,16 @@ def gera_nome_de_usuario(nome, codif='utf-8'):
     return nome
 
 
-def cria_pessoa(nome):
-    pessoa = Pessoa()
-    pessoa.nome = nome
+def cria_pessoa(dados):
+    if Pessoa.objects.filter(nome=dados[0]).count() == 0:
+        print 'Cadastrando Pessoa: ' + dados[0]
+        pessoa = Pessoa()
+        pessoa.nome = dados[0]
 
-    pessoa.save()
-    cria_usuario(pessoa)
+        pessoa.save()
+        cria_usuario(pessoa, dados)
+    else:
+        print 'Pessoa ' + dados[0] + ' já cadastrada.'
 
 
 def importar_pessoas():
@@ -51,10 +67,7 @@ def importar_pessoas():
         spamreader = csv.reader(csvfile)
 
         for row in spamreader:
-            nome = ', '.join(row)
-
-            print 'Cadastrando Pessoa: ' + nome
-            cria_pessoa(nome)
+            cria_pessoa(row)
 
 
 def importar_coordenadoria_adjunta():
@@ -67,16 +80,21 @@ def importar_coordenadoria_adjunta():
         spamreader = csv.reader(csvfile)
 
         for row in spamreader:
-            print 'Cadastrando CoordenadoriaAdjunta: ' + row[0]
+            coord_count = CoordenadoriaAdjunta.objects.filter(
+                abreviacao=row[1]).count()
+            if coord_count == 0:
+                print 'Cadastrando CoordenadoriaAdjunta: ' + row[0]
 
-            coord_adjunta = CoordenadoriaAdjunta()
-            coord_adjunta.descricao = row[0]
-            coord_adjunta.abreviacao = row[1]
-            coord_adjunta.coordenadoria = coordenadoria
-            coord_adjunta.save()
+                coord_adjunta = CoordenadoriaAdjunta()
+                coord_adjunta.descricao = row[0]
+                coord_adjunta.abreviacao = row[1]
+                coord_adjunta.coordenadoria = coordenadoria
+                coord_adjunta.save()
+            else:
+                print 'CoordenadoriaAdjunta ' + row[0] + ' já cadastrada.'
 
 
-def obter_coordenadoria_adjunta(abreviacao):
+def obter_coord_adjunta(abreviacao):
     coord_adjunta = CoordenadoriaAdjunta.objects.get(abreviacao=abreviacao)
     return coord_adjunta
 
@@ -86,14 +104,20 @@ def importar_departamentos():
         spamreader = csv.reader(csvfile)
 
         for row in spamreader:
-            print 'Cadastrando Departamento: ' + row[0]
-            departamento = Departamento()
-            departamento.descricao = row[0]
-            departamento.abreviacao = row[1]
-            departamento.coordenadoria_adjunta = obter_coordenadoria_adjunta(
-                row[2])
-            departamento.ramal_dpto = row[3]
-            departamento.save()
+            if Departamento.objects.filter(abreviacao=row[1]).count() == 0:
+                print 'Cadastrando Departamento: ' + row[0]
+                departamento = Departamento()
+                departamento.descricao = row[0]
+                departamento.abreviacao = row[1]
+                departamento.coordenadoria_adjunta = obter_coord_adjunta(
+                    row[2])
+
+                if row[3] != '':
+                    departamento.ramal_dpto = row[3]
+
+                departamento.save()
+            else:
+                print 'Departamento ' + row[0] + ' já cadastrado.'
 
 
 def obter_departamento(abreviacao):
@@ -101,17 +125,29 @@ def obter_departamento(abreviacao):
     return departamento
 
 
+def obter_ramal(ramal):
+    try:
+        ramal = Ramal.objects.get(ramal=ramal)
+    except:
+        ramal = None
+
+    return ramal
+
+
 def importar_ramal():
     with open('csvs/ramais.csv', 'r') as csvfile:
         spamreader = csv.reader(csvfile)
 
         for row in spamreader:
-            print 'Cadastrando Ramal: ' + row[0]
-            ramal = Ramal()
-            ramal.ramal = row[0]
-            ramal.departamento = obter_departamento(row[1])
+            if Ramal.objects.filter(ramal=row[0]).count() == 0:
+                print 'Cadastrando Ramal: ' + row[0]
+                ramal = Ramal()
+                ramal.ramal = row[0]
+                ramal.departamento = obter_departamento(row[1])
 
-            ramal.save()
+                ramal.save()
+            else:
+                print 'Ramal ' + row[0] + ' já cadastrado.'
 
 if __name__ == '__main__':
     importar_coordenadoria_adjunta()
