@@ -93,14 +93,9 @@ def alterar_dados(request):
 
 @login_required(login_url='/login/')
 def primeiro_login(request):
-    usuario = request.user
-
-    forms = obter_forms(usuario)
     return render_to_response(
-        'alterar_dados.html', {
-            'primeiro_login': True,
-            'form_funcionario': forms['funcionario'],
-            'form_pessoa': forms['pessoa'], },
+        'home.html', {
+            'primeiro_login': True, },
         context_instance=RequestContext(request)
     )
 

@@ -54,12 +54,6 @@
         <div class="large-2 small-1 columns"></div>
     </div>
 </div>
-
-<ol class="joyride-list" data-joyride>
-  <li data-id="dropdown_usuario" data-text="OK" data-options="tip_location: top;nub_position:top;">
-    <p>Hello and welcome to the <br>Joyride documentation page.</p>
-  </li>
-</ol>
 {% endblock %}
 
 {% if primeiro_login == True %}
@@ -105,10 +99,6 @@
 {% endblock %}
 
 {% block scripts_rodape %}
-    <script type="text/javascript">
-        $(document).foundation('joyride', 'start');
-    </script>
-
     {% if sucesso == True %}
         <script type="text/javascript">
             $('#modal_sucesso').foundation('reveal', 'open');

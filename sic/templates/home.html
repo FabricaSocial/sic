@@ -24,9 +24,32 @@
 
 {% endblock %}
 
+{% block joyride %}
+
+
+    <ol class="joyride-list" data-joyride>
+        <li data-text="Próximo">
+            <p><h5>Olá!</h5></p>
+            <p>Esse é o seu primeiro acesso. Seja bem vindo!</p>
+        </li>
+        <li data-id="alterar_senha_id" data-text="OK" data-options="tip_location: top;nub_position:top;">
+            <p><h5>Altere sua senha!</h5></p>
+            <p>Sua senha padrão não é muito segura... Altere ela aqui :)</p>
+        </li>
+    </ol>
+
+{% endblock %}
+
 {% block modal_sucesso %}Sua senha foi alterada.{% endblock %}
 
 {% block scripts_rodape %}
+
+    {% if primeiro_login == True %}
+        <script type="text/javascript">
+            $(document).foundation('joyride', 'start');
+        </script>
+    {% endif %}
+
     {% if sucesso == True %}
         <script type="text/javascript">
             $('#modal_sucesso').foundation('reveal', 'open');
