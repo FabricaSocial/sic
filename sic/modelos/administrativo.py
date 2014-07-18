@@ -59,7 +59,7 @@ class Departamento(models.Model):
             id=self.id, descricao=self.descricao,
             abreviacao=self.abreviacao,
             coordenadoria_adjunta=self.coordenadoria_adjunta.natural_key(),
-            rama_dpto=self.ramal_dpto)
+            ramal_dpto=self.ramal_dpto)
 
     def obter_funcionarios(self):
         from modelos.funcionario import Funcionario
@@ -69,7 +69,7 @@ class Departamento(models.Model):
     descricao = models.CharField(max_length=255, null=True)
     abreviacao = models.CharField(max_length=255, null=True)
     coordenadoria_adjunta = models.ForeignKey(CoordenadoriaAdjunta, null=True)
-    ramal_dpto = models.IntegerField(max_length=10)
+    ramal_dpto = models.IntegerField(max_length=10, null=True)
     funcionarios = property(obter_funcionarios)
 
 

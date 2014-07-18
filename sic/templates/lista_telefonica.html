@@ -56,7 +56,7 @@
                         <dd><a href="#departamento{{departamento.id}}">
                             <div class="row">
                                 <div class="large-10 columns" align="left">{{departamento.descricao}}</div>
-                                <div class="large-2 columns" align="center"><b>{{departamento.ramal}}</b></div>
+                                <div class="large-2 columns" align="center"><b>{{departamento.ramal_dpto|default_if_none:'---'}}</b></div>
                             </div>
                             </a>
                         </dd>
@@ -67,6 +67,10 @@
                     <div class="content active" id="pesquisa">
                         <div class="row" align="center" id="divPesquisa">
                             <p><h5 id="mensagemBusca">Para realizar um consulta por nome, utilize a pesquisa acima. </h5></p>
+                        </div>
+                        <div class="row" align="center">
+                            {% load staticfiles %}
+                                <img id="loading" src="{% static "img/loading_ajax.gif" %}" alt="loading" width="30%" style="visibility: hidden;">
                         </div>
                     </div>
 
@@ -85,7 +89,11 @@
                                         {% for funcionario in departamento.funcionarios %}
                                             <tr>
                                                 <td>{{funcionario.pessoa.nome}}</td>
-                                                <td>{{funcionario.ramal}}</td>
+                                                {% if funcionario.ramal %}
+                                                    <td><center>{{funcionario.ramal}}</center></td>
+                                                {% else %}
+                                                    <td><center>{{funcionario.departamento.ramal_dpto|default_if_none:'---'}}</center></td>
+                                                {% endif %}
                                             </tr>
                                         {% endfor %}
                                         </tbody>
@@ -114,6 +122,7 @@
     <script type="text/javascript">
         function buscaFuncionarios(){
             var nomeFuncionario = $('#procurar_funcionario').val();
+            $('#loading').attr('style', 'visibility: visible;');
 
             $.ajax({
                 type: "GET",
@@ -135,23 +144,24 @@
                         var pessoa = funcionario.fields['pessoa'];
                         var ramal = funcionario.fields['ramal'];
 
-
+                        ramal = (ramal == null ? departamento.ramal_dpto : ramal.ramal);
+                        ramal = (ramal == null ? "---" : ramal);
                         departamento = (departamento == null ? "----" : departamento.abreviacao);
-
-                        ramal = (ramal == null ? "---" : ramal.ramal);
 
                         html += '<tr>' +
                                                     '<td>' + departamento + '</td>' +
                                                     '<td>' + pessoa.nome + '</td>' +
-                                                    '<td>' + ramal + '</td>' +
+                                                    '<td><center>' + ramal + '</center></td>' +
                                                 '</tr>';
                     })
 
                     html = html + '</tbody></table></div>';
 
+                    $('#loading').attr('style', 'visibility: hidden;');
                     $('#divPesquisa').html(html);
                 },
                 error: function(){
+                    $('#loading').attr('style', 'visibility: hidden;');
                     $('#divPesquisa').html('<p><h5 id="mensagemBusca">Para realizar um consulta por nome, utilize a pesquisa acima. </h5></p>');
 
                     if(nomeFuncionario == ""){
