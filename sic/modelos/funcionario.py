@@ -75,7 +75,7 @@ class Funcionario(models.Model):
         return Funcionario.objects.filter(
             pessoa__nome__icontains=nome, status=True)
 
-    matricula = models.IntegerField(null=True)
+    matricula = models.CharField(null=True)
     status = models.BooleanField(default=True)
     pessoa = models.OneToOneField(Pessoa, null=True)
     cargo = models.ForeignKey(Cargo, null=True)
@@ -99,7 +99,3 @@ class FuncionarioAudit(models.Model):
     funcionario = models.ForeignKey(Funcionario, null=True)
     usuario = models.ForeignKey(User, null=True)
     tipo_audit = models.ForeignKey(TipoAudit, null=True)
-    cargo = models.ForeignKey(Cargo, null=True)
-    usuario = models.ForeignKey(User, null=True)
-    tipo_audit = models.ForeignKey(TipoAudit, null=True)
-    cargo = models.ForeignKey(Cargo, null=True)
