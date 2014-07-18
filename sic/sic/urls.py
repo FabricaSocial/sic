@@ -10,9 +10,6 @@ urlpatterns = patterns('',
                        url(r'^$', 'auth.views.inicio'),
                        url(r'^login/', include('auth.urls')),
 
-                       url(r'^painel/ponto/$', 'app.views.alterar_ponto'),
-                       url(r'^', include('ponto.urls')),
-
                        url(r'^telefones/', include('lista_telefonica.urls')),
 
                        url(r'^admin/', include(admin.site.urls)),

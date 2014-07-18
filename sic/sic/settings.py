@@ -42,7 +42,6 @@ INSTALLED_APPS = (
 
     'modelos',
     'access_db',
-    'ponto',
     'auth',
     'app',
 )
