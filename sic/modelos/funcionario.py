@@ -75,7 +75,7 @@ class Funcionario(models.Model):
         return Funcionario.objects.filter(
             pessoa__nome__icontains=nome, status=True)
 
-    matricula = models.CharField(null=True)
+    matricula = models.CharField(max_length=255, null=True)
     status = models.BooleanField(default=True)
     pessoa = models.OneToOneField(Pessoa, null=True)
     cargo = models.ForeignKey(Cargo, null=True)
