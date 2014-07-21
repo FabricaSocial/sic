@@ -21,9 +21,9 @@ from configs import database
 SECRET_KEY = '00kuvh*+=vo+u%t!0%5&)*17&mmjuzsearv6$s33$zi-sv33vn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-TEMPLATE_DEBUG = True
+TEMPLATE_DEBUG = False
 
 ALLOWED_HOSTS = []
 
