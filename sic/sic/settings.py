@@ -41,7 +41,6 @@ INSTALLED_APPS = (
     'south',
 
     'modelos',
-    'access_db',
     'auth',
     'app',
 )
