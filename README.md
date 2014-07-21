@@ -16,8 +16,8 @@ Etapas de Implementação
 --------
 O sistema será implementado por módulos:
 
-###Sistema de Ponto
-Primeiro módulo a ser implementado. Consiste em um sistema de registro de ponto (entrada e saída) dos capacitandos. Os requisitos e regras de negócio estão especificados em [SIC_PONTO.md](https://github.com/FabricaSocial/sic/blob/master/SIC_PONTO.md)
+###Lista Telefônica
+Primeiro módulo a ser implementado. Consiste em um sistema de pesquisa de ramal por funcionário e/ou departamento.
 
 ####Etapas
 
@@ -25,6 +25,6 @@ Primeiro módulo a ser implementado. Consiste em um sistema de registro de ponto
 2. Sincronizar Django com o banco já existente.
 3. Definir classes modelo, para utilização do ORM do Django.
 4. Implementar sistema de login.
-5. Implementar módulo de registro de ponto.
+5. Implementar módulo de lista telefônica.
 
 **Tempo estimado:** 4 dias.
