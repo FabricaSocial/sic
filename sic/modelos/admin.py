@@ -10,7 +10,6 @@ from modelos.funcionario import TipoAudit, Lotacao, Cargo, Funcionario, \
     FuncionarioAudit
 from modelos.administrativo import Coordenadoria, CoordenadoriaAdjunta, \
     Ramal, Departamento
-from modelos.ponto import Ponto, TipoPonto
 
 
 admin.site.register(CategoriaCNH)
@@ -46,6 +45,3 @@ admin.site.register(Coordenadoria)
 admin.site.register(CoordenadoriaAdjunta)
 admin.site.register(Ramal)
 admin.site.register(Departamento)
-
-admin.site.register(Ponto)
-admin.site.register(TipoPonto)
