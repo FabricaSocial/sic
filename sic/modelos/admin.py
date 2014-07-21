@@ -6,8 +6,6 @@ from modelos.pessoa import CategoriaCNH, Nacionalidade, TipoIdentidade, \
     TipoTelefone, Pais, Etnia, UF, Cidade, Naturalidade, Endereco, \
     EstadoCivil, Sexo, Pessoa, Reservista, RegistroGeral, ServicoMilitar, \
     CarteiraTrabalho, Filiacao, CNH, Telefone, Email, TituloEleitor
-from modelos.capacitando import Categoria, NecessidadeEspecial, \
-    Especialidade, AreaAtuacao, Turno, Capacitando, Desligamento
 from modelos.funcionario import TipoAudit, Lotacao, Cargo, Funcionario, \
     FuncionarioAudit
 from modelos.administrativo import Coordenadoria, CoordenadoriaAdjunta, \
@@ -37,14 +35,6 @@ admin.site.register(CNH)
 admin.site.register(Telefone)
 admin.site.register(Email)
 admin.site.register(TituloEleitor)
-
-admin.site.register(Categoria)
-admin.site.register(NecessidadeEspecial)
-admin.site.register(Especialidade)
-admin.site.register(AreaAtuacao)
-admin.site.register(Turno)
-admin.site.register(Capacitando)
-admin.site.register(Desligamento)
 
 admin.site.register(TipoAudit)
 admin.site.register(Lotacao)
