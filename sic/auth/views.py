@@ -23,7 +23,6 @@ def inicio(request):
         )
 
 
-@ensure_csrf_cookie
 def entrar(request):
     usuario = request.POST['usuario']
     senha = request.POST['senha']
