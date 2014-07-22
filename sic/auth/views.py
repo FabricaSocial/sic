@@ -54,6 +54,7 @@ def entrar(request):
 
 @csrf_protect
 @login_required(login_url='/login/')
+@csrf_protect
 def alterar_senha(request):
     senha = request.POST['senha']
     usuario = request.user
