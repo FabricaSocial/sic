@@ -1,11 +1,14 @@
 echo "Configuração do ambiente SIC"
 echo "-----------------------------------------"
 echo "Instalando MySQL Server"
-# sudo yum update
-# sudo yum install mysql-server libmysqlclient-devel
+yum update
+yum install -y mysql-server mysql-devel
+echo ""
+echo "Instalando development tools"
+yum group -y install "development tools"
 echo ""
 echo "Instalando Python-PIP"
-# sudo yum install python-devel
+easy_install pip
 echo ""
 echo "Instalando dependencias do projeto"
-# sudo pip install -r requirements.txt
+sudo pip install -r requirements.txt
