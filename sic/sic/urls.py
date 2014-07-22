@@ -2,15 +2,20 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-urlpatterns = patterns('',
-                       url(r'^home/$', 'app.views.index'),
-                       url(r'^primeiro-login/$', 'auth.views.primeiro_login'),
-                       url(r'^painel/$', 'app.views.painel_controle'),
+handler404 = 'app.views.pagina_nao_encontrada'
+handler403 = 'app.views.acesso_negado'
+handler500 = 'app.views.erro_no_sistema'
 
-                       url(r'^$', 'auth.views.inicio'),
-                       url(r'^login/', include('auth.urls')),
+urlpatterns = patterns(
+    '',
+    url(r'^home/$', 'app.views.index'),
+    url(r'^primeiro-login/$', 'auth.views.primeiro_login'),
+    url(r'^painel/$', 'app.views.painel_controle'),
 
-                       url(r'^telefones/', include('lista_telefonica.urls')),
+    url(r'^$', 'auth.views.inicio'),
+    url(r'^login/', include('auth.urls')),
 
-                       url(r'^admin/', include(admin.site.urls)),
-                       )
+    url(r'^telefones/', include('lista_telefonica.urls')),
+
+    url(r'^admin/', include(admin.site.urls)),
+)

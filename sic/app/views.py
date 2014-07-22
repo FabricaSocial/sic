@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.contrib.auth.decorators import login_required
 
 
@@ -19,3 +19,26 @@ def index(request):
         {'gerencia': gerencia},
         context_instance=RequestContext(request))
 
+
+def pagina_nao_encontrada(request):
+    mensagem_erro = 'A página solicitada não foi encontrada :('
+
+    return render(request, 'home.html', {
+        'modal_erro': True,
+        'mensagem_erro': mensagem_erro})
+
+
+def acesso_negado(request):
+    mensagem_erro = 'Você não tem permissão para acessar essa página :('
+
+    return render(request, 'home.html', {
+        'modal_erro': True,
+        'mensagem_erro': mensagem_erro})
+
+
+def erro_no_sistema(request):
+    mensagem_erro = 'Ocorreu um erro no sistema :('
+
+    return render(request, 'home.html', {
+        'modal_erro': True,
+        'mensagem_erro': mensagem_erro})
