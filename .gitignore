@@ -57,6 +57,7 @@ docs/_build/
 
 # Configuration Files
 database.py
+servidor.py
 
 # Migrations
 sic/modelos/migrations

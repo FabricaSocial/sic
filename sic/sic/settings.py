@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-from configs import database
+from configs import database, servidor
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -21,11 +21,11 @@ from configs import database
 SECRET_KEY = '00kuvh*+=vo+u%t!0%5&)*17&mmjuzsearv6$s33$zi-sv33vn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = servidor.debug
 
-TEMPLATE_DEBUG = False
+TEMPLATE_DEBUG = servidor.template_debug
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = servidor.allowed_hosts
 
 
 # Application definition
