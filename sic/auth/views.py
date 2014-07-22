@@ -4,6 +4,7 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 
+from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
@@ -23,6 +24,7 @@ def inicio(request):
         )
 
 
+@csrf_protect
 def entrar(request):
     usuario = request.POST['usuario']
     senha = request.POST['senha']
@@ -31,13 +33,13 @@ def entrar(request):
     erro_login = None
 
     if login_usuario is not None:
-    	if login_usuario.last_login != login_usuario.date_joined:
+        if login_usuario.last_login != login_usuario.date_joined:
             if login_usuario.is_active:
                 login(request, login_usuario)
                 return HttpResponseRedirect('/home/')
             else:
                 erro_login = USUARIO_INATIVO
-    	else:
+        else:
             login(request, login_usuario)
             return HttpResponseRedirect('/primeiro-login/')
     else:
@@ -50,6 +52,7 @@ def entrar(request):
     )
 
 
+@csrf_protect
 @login_required(login_url='/login/')
 def alterar_senha(request):
     senha = request.POST['senha']
