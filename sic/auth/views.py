@@ -30,18 +30,18 @@ def entrar(request):
     login_usuario = authenticate(username=usuario, password=senha)
     erro_login = None
 
-    if login_usuario.last_login != login_usuario.date_joined:
-        if login_usuario is not None:
+    if login_usuario is not None:
+    	if login_usuario.last_login != login_usuario.date_joined:
             if login_usuario.is_active:
                 login(request, login_usuario)
                 return HttpResponseRedirect('/home/')
             else:
                 erro_login = USUARIO_INATIVO
-        else:
-            erro_login = LOGIN_INVALIDO
+    	else:
+            login(request, login_usuario)
+            return HttpResponseRedirect('/primeiro-login/')
     else:
-        login(request, login_usuario)
-        return HttpResponseRedirect('/primeiro-login/')
+        erro_login = LOGIN_INVALIDO
 
     return render_to_response(
         'login.html',
