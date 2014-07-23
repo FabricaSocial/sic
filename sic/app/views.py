@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from django.template import RequestContext
-from django.shortcuts import render_to_response, render
+from django.shortcuts import render_to_response, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.context_processors import csrf
 
 
 @login_required(login_url='/login/')
@@ -42,13 +43,15 @@ def erro_no_sistema(request):
 
 
 def return_erro(request, mensagem_erro):
+    csrf_token = {}
+    csrf_token.update(csrf(request))
+    modal_erro = True
+
     if request.user.is_authenticated():
-        response = render(request, 'home.html', {
-            'modal_erro': True,
-            'mensagem_erro': mensagem_erro})
+        response = redirect('/home/', csrf_token, modal_erro, mensagem_erro)
     else:
-        response = render(request, 'login.html', {
-            'modal_erro': True,
-            'mensagem_erro': mensagem_erro})
+        response = redirect('/login/', csrf_token, kwargs={
+                            'modal_erro': modal_erro,
+                            'mensagem_erro': mensagem_erro})
 
     return response
