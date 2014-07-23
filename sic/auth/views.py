@@ -30,10 +30,10 @@ def entrar(request):
     login_usuario = authenticate(username=usuario, password=senha)
     erro_login = None
 
+    csrf_token = {}
+    csrf_token.update(csrf(request))    
+    
     if login_usuario is not None:
-
-        csrf_token = {}
-        csrf_token.update(csrf(request))
         if login_usuario.last_login != login_usuario.date_joined:
             if login_usuario.is_active:
                 login(request, login_usuario)
