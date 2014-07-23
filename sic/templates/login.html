@@ -25,6 +25,9 @@
         Parece que esse usuário está desativado.
     {% elif erro_login == 2 %}
         Usuário ou senha inválidos.
+    {% elif mensagem_erro %}
+        {{mensagem_erro}} <br>
+        Persistindo o erro, entre em contato com o Departamento de TI, ramal 220.
     {% endif %}
 {% endblock %}
 
@@ -33,7 +36,7 @@
         document.getElementById('usuario').focus();
     </script>
 
-    {% if erro_login != None %}
+    {% if modal_erro == True %}
         <script type="text/javascript">
             $('#modal_erro').foundation('reveal', 'open');
         </script>

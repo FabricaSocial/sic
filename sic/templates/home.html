@@ -41,7 +41,10 @@
 {% endblock %}
 
 {% block modal_sucesso %}Sua senha foi alterada.{% endblock %}
-
+{% block modal_erro %}
+    {{mensagem_erro}} <br>
+    Persistindo o erro, entre em contato com o Departamento de TI, ramal 220.
+{% endblock %}
 {% block scripts_rodape %}
 
     {% if primeiro_login == True %}
@@ -50,11 +53,10 @@
         </script>
     {% endif %}
 
-    {% if modal_erro == 404 %}
-        {% block modal_erro %}
-        {{mensagem_erro}} <br>
-        Persistindo o erro, entre em contato com o Departamento de TI, ramal 220.
-        {% endblock %}
+    {% if modal_erro == True %}
+        <script type="text/javascript">
+            $('#modal_erro').foundation('reveal', 'open');
+        </script>
     {% endif %}
 
     {% if sucesso == True %}

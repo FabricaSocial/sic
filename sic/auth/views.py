@@ -30,7 +30,6 @@ def entrar(request):
     login_usuario = authenticate(username=usuario, password=senha)
     erro_login = None
 
-
     if login_usuario is not None:
 
         csrf_token = {}
@@ -49,7 +48,7 @@ def entrar(request):
 
     return render_to_response(
         'login.html',
-        {'erro_login': erro_login},
+        {'erro_login': erro_login, 'modal_erro': True},
         context_instance=RequestContext(request)
     )
 

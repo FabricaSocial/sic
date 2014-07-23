@@ -23,22 +23,32 @@ def index(request):
 def pagina_nao_encontrada(request):
     mensagem_erro = 'A página solicitada não foi encontrada :('
 
-    return render(request, 'home.html', {
-        'modal_erro': True,
-        'mensagem_erro': mensagem_erro})
+    response = return_erro(request, mensagem_erro)
+    return response
 
 
 def acesso_negado(request):
     mensagem_erro = 'Você não tem permissão para acessar essa página :('
 
-    return render(request, 'home.html', {
-        'modal_erro': True,
-        'mensagem_erro': mensagem_erro})
+    response = return_erro(request, mensagem_erro)
+    return response
 
 
 def erro_no_sistema(request):
     mensagem_erro = 'Ocorreu um erro no sistema :('
 
-    return render(request, 'home.html', {
-        'modal_erro': True,
-        'mensagem_erro': mensagem_erro})
+    response = return_erro(request, mensagem_erro)
+    return response
+
+
+def return_erro(request, mensagem_erro):
+    if request.user.is_authenticated():
+        response = render(request, 'home.html', {
+            'modal_erro': True,
+            'mensagem_erro': mensagem_erro})
+    else:
+        response = render(request, 'login.html', {
+            'modal_erro': True,
+            'mensagem_erro': mensagem_erro})
+
+    return response
