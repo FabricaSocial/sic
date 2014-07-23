@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.template import RequestContext
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
-from django.core.context_processors import csrf
 
 
 @login_required(login_url='/login/')
@@ -19,43 +18,3 @@ def index(request):
         'home.html',
         {'gerencia': gerencia},
         context_instance=RequestContext(request))
-
-
-def pagina_nao_encontrada(request):
-    mensagem_erro = 'A página solicitada não foi encontrada :('
-
-    response = return_erro(request, mensagem_erro)
-    return response
-
-
-def acesso_negado(request):
-    mensagem_erro = 'Você não tem permissão para acessar essa página :('
-
-    response = return_erro(request, mensagem_erro)
-    return response
-
-
-def erro_no_sistema(request):
-    mensagem_erro = 'Ocorreu um erro no sistema :('
-
-    response = return_erro(request, mensagem_erro)
-    return response
-
-
-def return_erro(request, mensagem_erro):
-    csrf_token = {}
-    csrf_token.update(csrf(request))
-    modal_erro = True
-    destiny = ''
-
-    if request.user.is_authenticated():
-        destiny = '/home/'
-    else:
-        destiny = '/login/'
-
-    return  redirect(destiny, {
-                            'modal_erro': modal_erro,
-                            'mensagem_erro': mensagem_erro},
-                            csrf_token
-                            )
-

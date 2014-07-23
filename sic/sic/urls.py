@@ -2,10 +2,6 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 admin.autodiscover()
 
-handler404 = 'app.views.pagina_nao_encontrada'
-handler403 = 'app.views.acesso_negado'
-handler500 = 'app.views.erro_no_sistema'
-
 urlpatterns = patterns(
     '',
     url(r'^home/$', 'app.views.index'),
