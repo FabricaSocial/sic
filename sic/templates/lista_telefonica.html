@@ -111,7 +111,6 @@
 {% endblock %}
 
 {% block scripts_rodape %}
-
     <script type="text/javascript">
         function selecionarTabBusca(){
             $('#coord_adj1').click();
@@ -122,6 +121,7 @@
     <script type="text/javascript">
         function buscaFuncionarios(){
             var nomeFuncionario = $('#procurar_funcionario').val();
+
             $('#loading').attr('style', 'visibility: visible;');
 
             $.ajax({
