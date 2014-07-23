@@ -34,7 +34,7 @@
 <div class="row">
     <dl class="tabs horizontal" data-tab>
         {% for coordenadoria in coordenadorias_adjuntas %}
-            {% if coordenadoria.id == 1 %}
+            {% if coordenadoria.id == 2 %}
                 <dd class="active"><a id="coord_adj{{coordenadoria.id}}"
                     href="#coordenadoria{{coordenadoria.id}}">{{coordenadoria.abreviacao}}</a></dd>
             {% else %}
@@ -45,7 +45,7 @@
     </dl>
     <div class="tabs-content">
         {% for coordenadoria in coordenadorias_adjuntas %}
-            {% if coordenadoria.id == 1 %}
+            {% if coordenadoria.id == 2 %}
                 <div class="content active" id="coordenadoria{{coordenadoria.id}}">
             {% else %}
                 <div class="content" id="coordenadoria{{coordenadoria.id}}">
@@ -113,7 +113,7 @@
 {% block scripts_rodape %}
     <script type="text/javascript">
         function selecionarTabBusca(){
-            $('#coord_adj1').click();
+            $('#coord_adj2').click();
             $('#busca_tab').click();
         }
     </script>

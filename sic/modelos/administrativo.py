@@ -29,7 +29,7 @@ class CoordenadoriaAdjunta(models.Model):
 
     @classmethod
     def obter_lista(cls):
-        return CoordenadoriaAdjunta.objects.all()
+        return CoordenadoriaAdjunta.objects.all().order_by('abreviacao')
 
     def obter_departamentos(self):
         return Departamento.objects.filter(
