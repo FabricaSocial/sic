@@ -46,12 +46,16 @@ def return_erro(request, mensagem_erro):
     csrf_token = {}
     csrf_token.update(csrf(request))
     modal_erro = True
+    destiny = ''
 
     if request.user.is_authenticated():
-        response = redirect('/home/', csrf_token, modal_erro, mensagem_erro)
+        destiny = '/home/'
     else:
-        response = redirect('/login/', csrf_token, kwargs={
-                            'modal_erro': modal_erro,
-                            'mensagem_erro': mensagem_erro})
+        destiny = '/login/'
 
-    return response
+    return  redirect(destiny, {
+                            'modal_erro': modal_erro,
+                            'mensagem_erro': mensagem_erro},
+                            csrf_token
+                            )
+
