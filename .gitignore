@@ -58,8 +58,11 @@ docs/_build/
 # Configuration Files
 database.py
 servidor.py
+ldap_server.py
 
 # Migrations
 sic/modelos/migrations
 sic/csvs
 
+# PyCharm folders and files
+.idea/
