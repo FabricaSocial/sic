@@ -74,7 +74,7 @@ class Funcionario(models.Model):
         """Realiza filtragem por nome de funcionário para pesquisa dinâmica"""
         return Funcionario.objects.filter(
             pessoa__nome__icontains=nome, status=True). order_by(
-                    'departamento__abreviacao', 'pessoa__nome')
+                'pessoa__nome')
 
     matricula = models.CharField(max_length=255, null=True)
     status = models.BooleanField(default=True)
