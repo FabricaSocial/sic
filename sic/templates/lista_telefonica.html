@@ -70,7 +70,8 @@
                         </div>
                         <div class="row" align="center">
                             {% load staticfiles %}
-                                <img id="loading" src="{% static "img/loading_ajax.gif" %}" alt="loading" width="30%" style="visibility: hidden;">
+                                <img id="loading" src="{% static "img/loading_ajax.gif" %}" alt="loading" width="30%"
+                                style="visibility: hidden;display:none;">
                         </div>
                     </div>
 
@@ -130,7 +131,7 @@
         function buscaFuncionarios(){
             var nomeFuncionario = $('#procurar_funcionario').val();
 
-            $('#loading').attr('style', 'visibility: visible;');
+            $('#loading').attr('style', 'visibility: visible;display:block;');
 
             if(ajax_request){
                 ajax_request.abort();
@@ -169,13 +170,13 @@
 
                     html = html + '</tbody></table></div>';
 
-                    $('#loading').attr('style', 'visibility: hidden;');
+                    $('#loading').attr('style', 'visibility: hidden;display:none;');
                     $('#divPesquisa').html(html);
 
                     ajax_request = false;
                 },
                 error: function(){
-                    $('#loading').attr('style', 'visibility: hidden;');
+                    $('#loading').attr('style', 'visibility: hidden;display:none;');
                     $('#divPesquisa').html('<p><h5 id="mensagemBusca">Para realizar um consulta por nome, utilize a pesquisa acima. </h5></p>');
 
                     if(nomeFuncionario == ""){
