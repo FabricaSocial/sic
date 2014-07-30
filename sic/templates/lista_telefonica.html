@@ -120,13 +120,11 @@
 
     <script type="text/javascript">
         ajax_request = false;
+
         $.ajaxSetup({
                 beforeSend: function(jqXHR) {
                     ajax_request = jqXHR;
                 },
-                complete: function(jqXHR) {
-                    ajax_request = false;
-                }
             });
 
         function buscaFuncionarios(){
@@ -134,10 +132,8 @@
 
             $('#loading').attr('style', 'visibility: visible;');
 
-            console.log(ajax_request);
             if(ajax_request){
                 ajax_request.abort();
-                console.log('aborting ajax_request');
             }
 
             $.ajax({
@@ -175,6 +171,8 @@
 
                     $('#loading').attr('style', 'visibility: hidden;');
                     $('#divPesquisa').html(html);
+
+                    ajax_request = false;
                 },
                 error: function(){
                     $('#loading').attr('style', 'visibility: hidden;');
@@ -186,6 +184,8 @@
                         $('#mensagemBusca').html("Desculpe.. Não encontramos nenhum funcionário com o nome: <b>"
                         + nomeFuncionario + "</b>.");
                     }
+
+                    ajax_request = false;
                 }
             })
         }
